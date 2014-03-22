@@ -25,7 +25,7 @@ $(document).ready(function() {
 			accelString += accel.y + '<br>';
 			accelString += accel.z + '<br>';
 			$('.accel').html(accelString);
-			socket.emit('user-data', {
+			socket.emit('geodata_receive', {
 				data: accel
 			});
 		}

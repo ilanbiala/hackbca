@@ -39,13 +39,13 @@ app.get('/', function(req, res) {
 });
 
 io.sockets.on('connection', function(socket) {
-	socket.on('geodata_receive', geodata.receive);
+	socket.on('geodata_receive', function(data){	
+		var geodata = {};
+		console.log(data);
+	});
 });
 
 io.set('loglevel', 10);
-io.sockets.on('connection', function(socket) {
-	socket.on('update', function(data) {});
-});
 
 server.listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
