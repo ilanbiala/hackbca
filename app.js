@@ -36,7 +36,7 @@ app.get('/', function(req, res) {
 	});
 });
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function(socket) {
 	socket.on('geodata_receive', geodata.receive);
 });
 

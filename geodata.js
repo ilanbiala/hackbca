@@ -1,3 +1,3 @@
-var receive = function(data){
-	
+var receive = function(data){	
+	var geodata = {};
 }
