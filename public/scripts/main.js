@@ -10,9 +10,9 @@ $(document).ready(function() {
 
 	} else {
 		socket = io.connect('http://localhost');
-		window.addEventListener('devicemotion', deviceMotionHandler, false);
+		window.addEventListener('devicemotion', handleDeviceMotion, false);
 
-		function deviceMotionHandler(eventData) {
+		function handleDeviceMotion(eventData) {
 
 			// Grab the acceleration including gravity from the results
 			var acceleration = eventData.accelerationIncludingGravity;
@@ -25,6 +25,9 @@ $(document).ready(function() {
 			accelString += accel.y + '<br>';
 			accelString += accel.z + '<br>';
 			$('.accel').html(accelString);
+			socket.emit('user-data', {
+				data: accel
+			});
 		}
 	}
 });
