@@ -11,7 +11,6 @@ var app = express(),
 	server = http.createServer(app),
 	io = require('socket.io').listen(server);
 
-var io = require('socket.io').listen(app.get('port'));
 var geodata = require('./geodata');
 
 // all environments
@@ -38,14 +37,14 @@ app.get('/', function(req, res) {
 	});
 });
 
+io.set('loglevel', 10);
+
 io.sockets.on('connection', function(socket) {
-	socket.on('geodata_receive', function(data){	
+	socket.on('geodata_receive', function(data) {
 		var geodata = {};
 		console.log(data);
 	});
 });
-
-io.set('loglevel', 10);
 
 server.listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));

@@ -9,7 +9,7 @@ $(document).ready(function() {
 	if (!(window.DeviceOrientationEvent && window.DeviceMotionEvent)) {
 
 	} else {
-		socket = io.connect('http://localhost');
+		socket = io.connect('http://localhost/');
 		window.addEventListener('devicemotion', handleDeviceMotion, false);
 
 		function handleDeviceMotion(eventData) {
