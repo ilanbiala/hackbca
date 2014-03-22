@@ -7,6 +7,8 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var io = require('sockets.io').listen(80);
+var geodata = require('./geodata');
 
 var app = express();
 
@@ -32,6 +34,10 @@ app.get('/', function(req, res) {
 	res.render('index', {
 		title: 'Snake'
 	});
+});
+
+io.sockets.on('connection', function(socket){
+	socket.on('geodata_receive', geodata.receive);
 });
 
 http.createServer(app).listen(app.get('port'), function() {
