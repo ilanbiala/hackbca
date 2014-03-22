@@ -16,14 +16,14 @@ $(document).ready(function() {
 
 			// Grab the acceleration including gravity from the results
 			var acceleration = eventData.accelerationIncludingGravity;
-			accel.x = acceleration.x;
-			accel.y = acceleration.y;
-			accel.z = acceleration.z;
+			accel.x = acceleration.x.toFixed(3);
+			accel.y = acceleration.y.toFixed(3);
+			accel.z = acceleration.z.toFixed(3);
 
 			var accelString = '';
-			accelString += accel.x + '<br>';
-			accelString += accel.y + '<br>';
-			accelString += accel.z + '<br>';
+			accelString += 'landscape/portrait: ' + accel.x + '<br>';
+			accelString += 'parallax: ' + accel.y + '<br>';
+			accelString += 'up/down: ' + accel.z + '<br>';
 			$('.accel').html(accelString);
 			socket.emit('user-data', {
 				data: accel
