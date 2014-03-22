@@ -4,4 +4,4 @@ window.ondevicemotion = function(event) {
     var accelerationZ = event.accelerationIncludingGravity.z;  
     var string = 'accelerationX :' + accelerationX + '<br>' + 'accelerationY: ' + accelerationY + '<br>' + 'accelerationZ: ' + accelerationZ;
     $('.accel').text(string);
-} 
+};
