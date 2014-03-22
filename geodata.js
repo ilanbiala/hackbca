@@ -1,3 +1,3 @@
-var geodata.receive = function(socket){
-	//do shit
+var receive = function(data){
+	
 }
