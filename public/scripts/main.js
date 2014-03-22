@@ -1,15 +1,18 @@
+var socket;
+var accel = {
+	x: null,
+	y: null,
+	z: null
+};
+
 $(document).ready(function() {
 	if (!(window.DeviceOrientationEvent && window.DeviceMotionEvent)) {
 
 	} else {
+		socket = io.connect('http://localhost');
 		window.addEventListener('devicemotion', deviceMotionHandler, false);
 
 		function deviceMotionHandler(eventData) {
-			var accel = {
-				x: null,
-				y: null,
-				z: null
-			};
 
 			// Grab the acceleration including gravity from the results
 			var acceleration = eventData.accelerationIncludingGravity;

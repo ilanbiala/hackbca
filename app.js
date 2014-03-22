@@ -2,15 +2,17 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var http = require('http');
-var path = require('path');
-var io = require('socket.io').listen(80);
-var geodata = require('./geodata');
+var express = require('express'),
+	routes = require('./routes'),
+	http = require('http'),
+	path = require('path');
 
-var app = express();
+var app = express(),
+	server = http.createServer(app),
+	io = require('socket.io').listen(server);
+
+var io = require('socket.io').listen(app.get('port'));
+var geodata = require('./geodata');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -40,6 +42,11 @@ io.sockets.on('connection', function(socket) {
 	socket.on('geodata_receive', geodata.receive);
 });
 
-http.createServer(app).listen(app.get('port'), function() {
+io.set('loglevel', 10);
+io.sockets.on('connection', function(socket) {
+	socket.on('update', function(data) {});
+});
+
+server.listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
 });
