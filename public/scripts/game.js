@@ -107,6 +107,7 @@ function success(position) {
 		currentLocation.x = Math.floor(Math.random() * 801);
 		currentLocation.y = Math.floor(Math.random() * 601);
 	} else {
+		$('.movement').html((position.coords.longitude - currentLong) * 1000);
 		currentLocation.x += (position.coords.longitude - currentLong) * 1000;
 		currentLocation.y += (position.coords.latitude - currentLat) * 1000;
 		currentLong = position.coords.longitude;
