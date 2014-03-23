@@ -14,7 +14,6 @@ function clearCanvas() {
 }
 
 function paint(array) {
-	ctx.fillStyle = 'yellow';
 	for (var i = 1; i < array.length; i++) {
 		var oldLocation = array[i - 1];
 		var currentLocation = array[i];
@@ -28,9 +27,10 @@ function paint_cell(x, y) {
 }
 
 function paint_path(oldLocation, currentLocation) {
-	ctx.fillStyle = 'yellow';
-	ctx.lineWidth = 5;
+	ctx.lineWidth = 10;
 	ctx.beginPath();
+	// console.log('old location: ' + oldLocation.x, oldLocation.y);
+	// console.log('current locaiton: ' + currentLocation.x, currentLocation.y);
 	ctx.moveTo(oldLocation.x, oldLocation.y);
 	ctx.lineTo(currentLocation.x, currentLocation.y);
 	ctx.stroke();
@@ -118,7 +118,7 @@ function success(position) {
 	$('.location-y').text(currentLocation.y);
 	$('.speed').text(currentLocation.speed);
 	$('.accuracy').text(currentLocation.accuracy);
-	$('.history-length').text(history.length);
+	$('.history').text(history);
 };
 
 function displayError(err) {
