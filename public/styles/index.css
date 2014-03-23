@@ -1,11 +1,11 @@
 h1{
-  font: 72px "Lucida Grande";
+  font: 72px "Trebuchet MS";
   text-align: center;
 }
 
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
 
 a {
