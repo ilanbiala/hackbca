@@ -99,12 +99,14 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 	socket.on('start_game', function(data) {
-		io.sockets.in(socket.get('room')).emit('game_started');
-	})
+		socket.get('room', function(err, room){
+			io.sockets.in(room).emit('game_started', {});
+		});
+	});
 	socket.on('disconnect', function() {
-		if (socket.get('room')) {
-			socket.leave(socket.get('room'));
-		}
+		socket.get('room', function(err, room){
+			socket.leave(socket.get(room));
+		});
 	});
 });
 
