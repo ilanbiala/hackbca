@@ -13,10 +13,20 @@ function clearCanvas() {
 	ctx.clearRect(0, 0, 1920, 1080);
 }
 
-function paint(array) {
-	for (var i = 1; i < array.length; i++) {
-		var oldLocation = array[i - 1];
-		var newLocation = array[i];
+function paintUser() {
+	ctx.strokeStyle = 'blue';
+	for (var i = 1; i < history.length; i++) {
+		var oldLocation = history[i - 1];
+		var newLocation = history[i];
+		paint_path(oldLocation, newLocation);
+	}
+}
+
+function paintEnemy() {
+	ctx.strokeStyle = 'red';
+	for (var i = 1; i < enemyHistory.length; i++) {
+		var oldLocation = enemyHistory[i - 1];
+		var newLocation = enemyHistory[i];
 		paint_path(oldLocation, newLocation);
 	}
 }
@@ -62,8 +72,7 @@ function startGame() {
 	if (navigator.geolocation) {
 		watch = navigator.geolocation.watchPosition(success, displayError, options);
 	}
-	setInterval(renderCanvas, 1000 / 45);
-	// renderCanvas();
+	renderCanvas();
 }
 
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -74,7 +83,7 @@ function renderCanvas() {
 	if (history.length == 1) {
 		paint_cell(history[0].x, history[0].y);
 	} else {
-		paint(history);
+		paintUser();
 	}
 	socket.emit('geodata_receive', {
 		room: roomName,
@@ -86,9 +95,9 @@ function renderCanvas() {
 	if (enemyHistory.length == 1) {
 		paint_cell(enemyHistory[0].x, enemyHistory[0].y);
 	} else {
-		paint(enemyHistory);
+		paintEnemy();
 	}
-	// requestAnimationFrame(renderCanvas);
+	requestAnimationFrame(renderCanvas);
 }
 
 function success(position) {
@@ -99,15 +108,15 @@ function success(position) {
 		accuracy: null
 	};
 	if (position.coords.longitude < 0) {
-		currentLocation.x = 1920 + (position.coords.longitude * 1920 / 90);
+		currentLocation.x = 1024 + (position.coords.longitude * 1024 / 90);
 	} else {
-		currentLocation.x = position.coords.longitude * 1920 / 90;
+		currentLocation.x = position.coords.longitude * 1024 / 90;
 	}
 	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
 	if (position.coords.latitude < 0) {
-		currentLocation.y = 1080 + (position.coords.latitude * 1080 / 180);
+		currentLocation.y = 768 + (position.coords.latitude * 768 / 180);
 	} else {
-		currentLocation.y = position.coords.latitude * 1080 / 180;
+		currentLocation.y = position.coords.latitude * 768 / 180;
 	}
 	currentLocation.y = Math.floor(currentLocation.y % 0.01 * 100000);
 	currentLocation.speed = position.coords.speed;
