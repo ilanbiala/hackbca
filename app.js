@@ -59,7 +59,7 @@ io.sockets.on('connection', function(socket) {
 				room: data.room
 			});
 			// res.redirect('/room/' + data.room);
-		} else if (sockets.clients(data.room) < 2) {
+		} else if (io.sockets.clients(data.room) < 2) {
 			socket.join(data.room);
 			// socket.set('nick', data.nick);
 			socket.emit('room_joined', {
