@@ -25,3 +25,7 @@ var join_room = function(data) {
 		});
 	}
 }
+
+module.exports.rooms = rooms;
+module.exports.receive = receive;
+module.exports.join_room = join_room;
