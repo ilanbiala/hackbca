@@ -48,7 +48,6 @@ io.set('loglevel', 10);
 
 io.sockets.on('connection', function(socket) {
 	socket.on('geodata_receive', geodata.receive);
-	socket.on('create_room', geodata.create_room);
 	socket.on('join_room', geodata.join_room);
 });
 
