@@ -14,39 +14,6 @@
     <button id="initiate-game">Launch/Join!</button>
     <canvas width="1920" height="1080">Your browser does not support the <code>canvas</code> element. Please try another browser.</canvas>
     <div class="accel"></div>
-    <div id="myPublisherDiv"></div>
-        <script type="text/javascript">
-          var apiKey    = "44704392";
-          var sessionId = "1_MX40NDcwNDM5Mn5-U2F0IE1hciAyMiAxNzowMzoyNCBQRFQgMjAxNH4wLjM5MzQ1NTc0fg";
-          var token     = "T1==cGFydG5lcl9pZD00NDcwNDM5MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz02OGNlYTY0MDI1ODVhZmQ5MjI2NDk4MjkxZTA5MTg4YzExYzBiOGFjOnJvbGU9c3Vic2NyaWJlciZzZXNzaW9uX2lkPTFfTVg0ME5EY3dORE01TW41LVUyRjBJRTFoY2lBeU1pQXhOem93TXpveU5DQlFSRlFnTWpBeE5INHdMak01TXpRMU5UYzBmZyZjcmVhdGVfdGltZT0xMzk1NTMzMDE1Jm5vbmNlPTAuODQ5MDMzNzYxOTU2NTM2JmV4cGlyZV90aW1lPTEzOTU1MzY1ODEmY29ubmVjdGlvbl9kYXRhPQ==";
-         
-          function sessionConnectedHandler (event) {
-             session.publish( publisher );
-             subscribeToStreams(event.streams);
-          }
-          function subscribeToStreams(streams) {
-            for (var i = 0; i < streams.length; i++) {
-                var stream = streams[i];
-                if (stream.connection.connectionId 
-                       != session.connection.connectionId) {
-                    session.subscribe(stream);
-                }
-            }
-          }
-          function streamCreatedHandler(event) {
-            subscribeToStreams(event.streams);
-          }
-         
-          var publisher = TB.initPublisher(apiKey);
-          var session   = TB.initSession(sessionId);
-         
-          session.connect(apiKey, token);
-          session.addEventListener("sessionConnected", 
-                                   sessionConnectedHandler);
-         
-          session.addEventListener("streamCreated", 
-                                   streamCreatedHandler);
-        </script>
     <script src="/scripts/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/scripts/main.js"></script>
