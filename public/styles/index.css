@@ -1,5 +1,6 @@
 h1{
-  font: 36px "Telegraphico";
+  font: 72px "Lucida Grande";
+  text-align: center;
 }
 
 body {
@@ -9,4 +10,8 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+.credits {
+	margin-top: 10px;
 }
