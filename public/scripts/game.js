@@ -48,8 +48,8 @@ function paint_path(oldLocation, newLocation) {
 }
 
 function check_collisions() {
-	for (var i = 1; i< enemyHistory.length; i++) {
-		if (Math.abs(enemyHistory[i].x-currentLocation.x<1) && Math.abs(enemyHistory[i].y-currentLocation.y<1)) {
+	for (var i = 1; i < enemyHistory.length; i++) {
+		if (Math.abs(enemyHistory[i].x - currentLocation.x < 1) && Math.abs(enemyHistory[i].y - currentLocation.y < 1)) {
 			alert('You lost. :( Go back to the homepage to play again.');
 			socket.emit('lose', {
 
