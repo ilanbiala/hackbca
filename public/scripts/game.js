@@ -40,7 +40,7 @@ function check_collision(x, y, array) {
 
 $(document).ready(function() {
 	var canvas = $('canvas'),
-		ctx = canvas[0].getContext("2d"),
+		ctx = canvas[0].getContext('2d'),
 		width = canvas.width(),
 		height = canvas.height();
 
