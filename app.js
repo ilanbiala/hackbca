@@ -40,10 +40,9 @@ app.get('/', function(req, res) {
 io.set('loglevel', 10);
 
 io.sockets.on('connection', function(socket) {
-	socket.on('geodata_receive', function(data) {
-		var geodata = {};
-		console.log(data);
-	});
+	socket.on('geodata_receive', geodata.receive);
+	socket.on('create_room', geodata.create_room);
+	socket.on('join_room', geodata.join_room);
 });
 
 server.listen(app.get('port'), function() {
