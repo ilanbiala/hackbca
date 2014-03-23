@@ -74,12 +74,12 @@ io.sockets.on('connection', function(socket) {
 		console.log(io.sockets.clients(data.room).length);
 		if (rooms.indexOf(data.room) === -1) {
 			rooms.push(data.room);
-			// socket.set('nick', data.nick);
+			socket.set('room', data.room);
 			socket.emit('room_joined', {
 				room: data.room
 			});
 		} else if (io.sockets.clients(data.room).length < 2) {
-			// socket.set('nick', data.nick);
+			socket.set('room', data.room);
 			socket.emit('room_joined', {
 				room: data.room
 			});
@@ -100,7 +100,9 @@ io.sockets.on('connection', function(socket) {
 				requestArea: false
 			});
 		}
-
+	});
+	socket.on('disconnect', function() {
+		socket.leave(socket.get('room'));
 	});
 });
 
