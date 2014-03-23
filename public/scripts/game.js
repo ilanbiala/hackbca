@@ -111,6 +111,12 @@ function success(position) {
 	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
 	currentLocation.y = 300 + (position.coords.latitude * 300 / 90);
 	currentLocation.y = Math.floor(currentLocation.y % 0.01 * 100000);
+	if (currentLocation.x > 800) {
+		currentLocation.x = currentLocation.x - 800;
+	}
+	if (currentLocation.y > 600) {
+		currentLocation.y = currentLocation.y - 600;
+	}
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
