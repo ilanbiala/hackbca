@@ -15,7 +15,7 @@ function clearCanvas() {
 //Lets paint the snake now
 function paint() {
 	ctx.fillStyle = 'yellow';
-	for (var i = 0; i < history.length; i++) {
+	for (var i = 1; i < history.length; i++) {
 		var oldLocation = history[i - 1];
 		var currentLocation = history[i];
 		paint_path(oldLocation, currentLocation);
@@ -31,6 +31,8 @@ function paint_cell(x, y) {
 function paint_path(oldLocation, currentLocation) {
 	ctx.fillStyle = 'yellow';
 	ctx.beginPath();
+	console.log(oldLocation);
+	console.log(currentLocation);
 	ctx.moveTo(oldLocation.x, oldLocation.y);
 	ctx.lineTo(currentLocation.x, currentLocation.y);
 	ctx.stroke();
