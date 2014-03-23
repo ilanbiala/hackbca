@@ -55,7 +55,8 @@ function check_collision(user, enemy) {
 			alert('You lost. :( Go back to the homepage to play again.');
 			socket.emit('lose', {
 
-			});	
+			});
+			window.location.href = '/';
 		}
 	}
 }
@@ -172,5 +173,6 @@ $(document).ready(function() {
 
 	socket.on('win', function() {
 		alert('You win! :) Go back to the homepage to play again.');
+		window.location.href = '/';
 	});
 });
