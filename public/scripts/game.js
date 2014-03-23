@@ -68,9 +68,9 @@ $(document).ready(function() {
 			accelString += 'parallax: ' + accel.y + '<br>';
 			accelString += 'up/down: ' + accel.z + '<br>';
 			$('.accel').html(accelString);
-			// socket.emit('geodata_receive', {
-			// 	data: accel
-			// });
+			socket.emit('geodata_receive', {
+				data: accel
+			});
 			history.push(accel);
 		}
 	}
