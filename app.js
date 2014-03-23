@@ -70,7 +70,7 @@ io.sockets.on('connection', function(socket) {
 	});
 	socket.on('join_room', function(data) {
 		console.log(io.sockets.clients(data.room).length);
-		if (io.sockets.manager.rooms.indexOf(data.room) === -1) {
+		if (data.room in io.sockets.manager.rooms) {
 			socket.set('room', data.room);
 			socket.emit('room_joined', {
 				room: data.room
