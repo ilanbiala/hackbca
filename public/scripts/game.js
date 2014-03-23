@@ -113,6 +113,7 @@ function success(position) {
 	currentLocation.y = Math.floor(currentLocation.y % 0.001 * 1000000);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
+	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
 	history.push(currentLocation);
 	$('.location-x').text(currentLocation.x);
 	$('.location-y').text(currentLocation.y);
