@@ -58,14 +58,12 @@ io.sockets.on('connection', function(socket) {
 			socket.emit('room_joined', {
 				room: data.room
 			});
-			// res.redirect('/room/' + data.room);
 		} else if (sockets.clients(data.room) < 2) {
 			socket.join(data.room);
 			// socket.set('nick', data.nick);
 			socket.emit('room_joined', {
 				room: data.room
 			});
-			// res.redirect('/room/' + data.room);
 		} else {
 			socket.emit('error', {
 				msg: 'room full'
