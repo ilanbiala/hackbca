@@ -59,8 +59,8 @@ function startGame() {
 }
 
 function success(position) {
-	currentLocation.x = position.coords.latitude;
-	currentLocation.y = postion.coords.longitude;
+	currentLocation.x = Math.pi/180*6367449*Math.cos(position.coords.longitude);
+	currentLocation.y = 111132.954-559.822*Math.cos(2*postion.coords.latitude)+1.175*Math.cos(4*postion.coords.latitude);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	history.push(currentLocation);
