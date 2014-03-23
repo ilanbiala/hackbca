@@ -103,26 +103,19 @@ function success(position) {
 	} else {
 		currentLocation.x = position.coords.longitude * 1920 / 90;
 	}
-	currentLocation.x = Math.floor(currentLocation.x % 0.001 * 1000000);
+	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
 	if (position.coords.latitude < 0) {
 		currentLocation.y = 1080 + (position.coords.latitude * 1080 / 180);
 	} else {
 		currentLocation.y = position.coords.latitude * 1080 / 180;
 	}
-	currentLocation.y = Math.floor(currentLocation.y % 0.001 * 1000000);
+	currentLocation.y = Math.floor(currentLocation.y % 0.01 * 100000);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
 	history.push(currentLocation);
-	$('.location-x').text(currentLocation.x);
-	$('.location-y').text(currentLocation.y);
 	$('.speed').text(currentLocation.speed);
 	$('.accuracy').text(currentLocation.accuracy);
-	var historyString = '';
-	for (var i = 0; i < history.length; i++) {
-		historyString += history[i].x + ', ' + history[i].y + '<br>';
-	}
-	$('.history').html(historyString);
 };
 
 function displayError(err) {
