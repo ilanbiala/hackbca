@@ -70,8 +70,7 @@ io.sockets.on('connection', function(socket) {
 	});
 	socket.on('join_room', function(data) {
 		console.log(io.sockets.clients(data.room).length);
-		console.log(io.sockets.manager.rooms);
-		if (io.sockets.manager.rooms.indexOf(data.room) === -1) {
+		if (data.room in io.sockets.manager.rooms) {
 			socket.set('room', data.room);
 			socket.emit('room_joined', {
 				room: data.room
@@ -100,8 +99,8 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 	socket.on('start_game', function(data) {
-		io.sockets. in (socket.get('room')).emit('game_started');
-	});
+		io.sockets.in(socket.get('room')).emit('game_started');
+	})
 	socket.on('disconnect', function() {
 		if (socket.get('room')) {
 			socket.leave(socket.get('room'));

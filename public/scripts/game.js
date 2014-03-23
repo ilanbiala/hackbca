@@ -85,11 +85,15 @@ $(document).ready(function() {
 				if (!(roomWidth.length > 0 && roomLength.length > 0)) {
 					return false;
 				}
+				socket.emit('start_game', {
+
+				});
 				$('#gameModal').modal('hide');
-				startGame();
 			});
-		} else {
-			startGame();
 		}
+	});
+
+	socket.on('game_started', function() {
+		startGame();
 	});
 });
