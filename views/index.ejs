@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/styles/index.css'>
+    <link rel='stylesheet' href='/styles/bootstrap.min.css'>
   </head>
   <body>
     <% if (error) { %>
@@ -18,9 +19,11 @@
         <li>Good luck and have fun.</li>
     </ul>
     <br>
-    <label for="room-name">Room name:</label>
-    <input id="room-name" name="room-name" type="text">
-    <button id="initiate-game">Launch/Join!</button>
+    <div class="form-inline">
+        <label for="room-name">Room name:</label>
+        <input id="room-name" name="room-name" type="text">
+        <button class="btn btn-primary" id="initiate-game">Launch/Join!</button>
+    </div>
     <br>
     <div class="credits">By <a href="https://twitter.com/mattr555">Matt Ramina</a>, <a href="https://github.com/ilanbiala">Ilan Biala</a>, and <a href="https://github.com/acepie">Ameen Radwan</a></div>
     <script src="/scripts/jquery.min.js"></script>
