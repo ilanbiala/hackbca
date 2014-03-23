@@ -104,12 +104,15 @@ io.sockets.on('connection', function(socket) {
 			io.sockets.in(room).emit('game_started', {});
 		});
 	});
-	socket.on('new_tok_sesh', function(){
-		var py = spawn('python', ['tok/tok.py']);
-		py.stdout.on('data', function(data){
-			d = data.split(',');
-			socket.emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
-		});
+	socket.on('new_tok_sesh', function(data){
+		var room = data.room
+		if (io.sockets.clients(room).length === 2) {
+			var py = spawn('python', ['tok/tok.py']);
+			py.stdout.on('data', function(data){
+				d = data.split(',');
+				io.sockets.in(room).emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
+			});
+		}
 	});
 	socket.on('disconnect', function() {
 		socket.get('room', function(err, room){
