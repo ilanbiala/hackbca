@@ -4,8 +4,23 @@ var token = "T1==cGFydG5lcl9pZD00NDcwNDM5MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC4
 
 // Initialize session, set up event listeners, and connect
 var session = TB.initSession(sessionId);
+var publisher = TB.initPublisher(apiKey);
 session.addEventListener('sessionConnected', sessionConnectedHandler);
+session.addEventListener("streamCreated", streamCreatedHandler);
 session.connect(apiKey, token);
+
+function subscribeToStreams(streams) {
+  for (var i = 0; i < streams.length; i++) {
+      var stream = streams[i];
+      if (stream.connection.connectionId != session.connection.connectionId) {
+          session.subscribe(stream);
+      }
+  }
+}
+
+function streamCreatedHandler(event) {
+    subscribeToStreams(event.streams);
+  }
 
 function sessionConnectedHandler(event) {
 	var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
