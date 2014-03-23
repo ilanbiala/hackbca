@@ -4,7 +4,7 @@ var accel = {
 	z: null
 };
 var history = [];
-var roomName = window.location.href.substring(window.location.href.lastIndexOf('/'));
+var roomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
 //Lets paint the snake now
 function paint() {
