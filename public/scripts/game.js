@@ -21,7 +21,7 @@ function paint() {
 
 	for (var i = 0; i < history.length; i++) {
 		var location = history[i];
-		//Lets paint 10px wide cells
+		//Lets paint 25px wide cells
 		paint_cell(location.x, location.y);
 	}
 }
@@ -66,12 +66,31 @@ var watch;
 function startGame() {
 	if (navigator.geolocation) {
 		watch = navigator.geolocation.watchPosition(success, displayError, options);
+		renderCanvas();
 	}
 }
 
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+function renderCanvas() {
+	clearCanvas();
+	paint();
+	requestAnimationFrame(renderCanvas);
+}
+
 function success(position) {
-	currentLocation.x = Math.PI/180*6367449*Math.cos(position.coords.longitude);
-	currentLocation.y = 111132.954-559.822*Math.cos(2*position.coords.latitude)+1.175*Math.cos(4*position.coords.latitude);
+	console.log(position);
+	if (position.coords.longitude < 0) {
+		currentLocation.x = 1920 + (position.coords.longitude * 1920/90);
+	} else {
+		currentLocation.x = position.coords.longitude * 1920/90;
+	}
+	if (position.coords.latitude < 0) {
+		currentLocation.y = 1080 + (position.coords.latitude * 1080/180);
+	} else {
+		currentLocation.y = position.coords.latitude * 1080/180;
+	}
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	console.log(currentLocation);
