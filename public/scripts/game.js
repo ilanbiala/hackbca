@@ -56,20 +56,13 @@ var options = {
 	timeout: 20000
 };
 
-var currentLocation = {
-	x: null,
-	y: null,
-	speed: null,
-	accuracy: null
-};
-
 var watch;
 
 function startGame() {
 	if (navigator.geolocation) {
 		watch = navigator.geolocation.watchPosition(success, displayError, options);
 	}
-	setInterval(renderCanvas, 1000/45);
+	setInterval(renderCanvas, 1000 / 45);
 	// renderCanvas();
 }
 
@@ -87,7 +80,7 @@ function renderCanvas() {
 		room: roomName,
 		data: history
 	});
-	socket.on('geodata_send', function (data) {
+	socket.on('geodata_send', function(data) {
 		enemyHistory = data.data;
 	});
 	if (enemyHistory.length == 1) {
@@ -99,6 +92,12 @@ function renderCanvas() {
 }
 
 function success(position) {
+	var currentLocation = {
+		x: null,
+		y: null,
+		speed: null,
+		accuracy: null
+	};
 	if (position.coords.longitude < 0) {
 		currentLocation.x = 1920 + (position.coords.longitude * 1920 / 90);
 	} else {
@@ -147,18 +146,18 @@ $(document).ready(function() {
 
 		});
 		// if (data.requestArea) {
-			// $('#gameModal').modal('show');
-			// $('#startGame').on('click', function() {
-				// roomLength = $('#room-length').val();
-				// roomWidth = $('#room-width').val();
-				// if (!(roomWidth.length > 0 && roomLength.length > 0)) {
-					// return false;
-				// }
-				// socket.emit('start_game', {
+		// $('#gameModal').modal('show');
+		// $('#startGame').on('click', function() {
+		// roomLength = $('#room-length').val();
+		// roomWidth = $('#room-width').val();
+		// if (!(roomWidth.length > 0 && roomLength.length > 0)) {
+		// return false;
+		// }
+		// socket.emit('start_game', {
 
-				// });
-				// $('#gameModal').modal('hide');
-			// });
+		// });
+		// $('#gameModal').modal('hide');
+		// });
 		// }
 	});
 
