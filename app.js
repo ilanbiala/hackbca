@@ -11,8 +11,6 @@ var app = express(),
 	server = http.createServer(app),
 	io = require('socket.io').listen(server);
 
-var geodata = require('./geodata');
-
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -37,12 +35,11 @@ app.get('/', function(req, res) {
 	});
 });
 
-// app.get('/room/:room', function(req, res) {
-// 	var room = req.params.room;
-// 	if (rooms.indexOf(room) != -1) {
-
-// 	}
-// });
+app.get('/room/:room', function(req, res) {
+	res.render('room/index', {
+		title: 'Snake'
+	});
+});
 
 io.set('loglevel', 10);
 
@@ -57,18 +54,18 @@ io.sockets.on('connection', function(socket) {
 		if (rooms.indexOf(data.room) === -1) {
 			rooms.push(data.room);
 			socket.join(data.room);
-			socket.set('nick', data.nick);
+			// socket.set('nick', data.nick);
 			socket.emit('room_joined', {
 				room: data.room
 			});
-			res.redirect('/room/' + data.room);
+			// res.redirect('/room/' + data.room);
 		} else if (sockets.clients(data.room) < 2) {
 			socket.join(data.room);
-			socket.set('nick', data.nick);
+			// socket.set('nick', data.nick);
 			socket.emit('room_joined', {
 				room: data.room
 			});
-			res.redirect('/room/' + data.room);
+			// res.redirect('/room/' + data.room);
 		} else {
 			socket.emit('error', {
 				msg: 'room full'

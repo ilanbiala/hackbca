@@ -5,13 +5,14 @@ $(document).ready(function() {
 
 	$('#initiate-game').on('click', function() {
 		var roomName = $('#room-name').val();
-		var personName = $('#player-name').val();
+		// var personName = $('#player-name').val();
 		socket.emit('join_room', {
 			room: roomName,
-			nick: personName
+			// nick: personName
 		});
-		socket.on('room_joined', function() {
-
+		socket.on('room_joined', function(data) {
+			var newURL = window.location.href + 'room/' + data.room;
+			window.location.href = newURL;
 		});
 		socket.on('error', function() {
 
