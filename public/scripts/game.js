@@ -87,7 +87,7 @@ function renderCanvas() {
 		data: history
 	});
 	socket.on('geodata_send', function (data) {
-		enemyHistory = data;
+		enemyHistory = data.data;
 	});
 	if (enemyHistory.length == 1) {
 		paint_cell(enemyHistory[0].x, enemyHistory[0].y);
