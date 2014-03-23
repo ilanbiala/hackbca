@@ -105,12 +105,18 @@ io.sockets.on('connection', function(socket) {
 		});
 	});
 	socket.on('new_tok_sesh', function(data){
-		var room = data.room
+		var room = data.room;
 		if (io.sockets.clients(room).length === 2) {
+			console.log('generating sesh!')
 			var py = spawn('python', ['tok/tok.py']);
 			py.stdout.on('data', function(data){
-				d = data.split(',');
+				d = data.toString().split('$');
+				console.log(d[0]);
+				console.log(d[1]);
 				io.sockets.in(room).emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
+			});
+			py.stderr.on('data', function(data){
+				console.error(data.toString());
 			});
 		}
 	});

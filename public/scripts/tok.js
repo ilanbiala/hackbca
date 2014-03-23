@@ -19,16 +19,21 @@ function streamCreatedHandler(event) {
 	subscribeToStreams(event.streams);
 }
 
-var publisher = TB.initPublisher(apiKey);
-var session, tok_session_id, tok_token;
+var publisher, session, tok_session_id, tok_token;
 
-socket.emit('new_tok_sesh', {room: roomName});
-socket.on('tok_sesh_generated', function(data){
-	tok_session_id = data.session_id;
-	tok_token = data.token;
-	session = TB.initSession(tok_session_id);
-	session.connect(apiKey, token);
+$(document).ready(function(){
+	console.log('emitting new_tok_sesh');
+	socket.emit('new_tok_sesh', {room: roomName});
+	socket.on('tok_sesh_generated', function(data){
+		console.log('i got a session')
+		publisher = TB.initPublisher(apiKey);
+		tok_session_id = data.session_id;
+		tok_token = data.token;
+		session = TB.initSession(tok_session_id);
+		session.connect(apiKey, token);
 
-	session.addEventListener("sessionConnected", sessionConnectedHandler);
-	session.addEventListener("streamCreated", streamCreatedHandler);
+		session.addEventListener("sessionConnected", sessionConnectedHandler);
+		session.addEventListener("streamCreated", streamCreatedHandler);
+	});
 });
+
