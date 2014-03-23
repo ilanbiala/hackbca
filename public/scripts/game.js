@@ -51,7 +51,6 @@ function check_collisions() {
 	for (var i = 1; i< enemyHistory.length; i++) {
 		if (Math.abs(enemyHistory[i].x-currentLocation.x<1) && Math.abs(enemyHistory[i].y-currentLocation.y<1)) {
 			alert('You lost. :( Go back to the homepage to play again.');
-			return false;
 			socket.emit('lose', {
 
 			});
@@ -123,10 +122,10 @@ function success(position) {
 		socket.emit('lose', {
 
 		});
+		window.location.href = '/';
 	}
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
-	debugger;
 	history.push({
 		x: currentLocation.x,
 		y: currentLocation.y,
@@ -162,11 +161,7 @@ $(document).ready(function() {
 	});
 
 	socket.on('win', function() {
-<<<<<<< HEAD
-		alert('You win! :) Go back to the homepage to play again.');
-		window.location.href = '/';
-=======
 		alert('You won! :) Go back to the homepage to play again.');
->>>>>>> 861736f7217fe29be5753355e1f7e59d06587d32
+		window.location.href = '/';
 	});
 });
