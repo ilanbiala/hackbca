@@ -15,7 +15,7 @@ function clearCanvas() {
 //Lets paint the snake now
 function paint() {
 	ctx.fillStyle = 'yellow';
-	for (var i = 0; i < history.length; i++) {
+	for (var i = 1; i < history.length; i++) {
 		var oldLocation = history[i - 1];
 		var currentLocation = history[i];
 		paint_path(oldLocation, currentLocation);
@@ -88,7 +88,6 @@ function renderCanvas() {
 }
 
 function success(position) {
-	console.log(position);
 	if (position.coords.longitude < 0) {
 		currentLocation.x = 1920 + (position.coords.longitude * 1920 / 90);
 	} else {
@@ -103,7 +102,6 @@ function success(position) {
 	currentLocation.y = Math.floor(currentLocation.y % 0.001 * 1000000);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
-	console.log(currentLocation);
 	history.push(currentLocation);
 	$('.location-x').text(currentLocation.x);
 	$('.location-y').text(currentLocation.y);
