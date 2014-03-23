@@ -68,7 +68,8 @@ function startGame() {
 	if (navigator.geolocation) {
 		watch = navigator.geolocation.watchPosition(success, displayError, options);
 	}
-	renderCanvas();
+	setInterval(renderCanvas, 1000/45);
+	// renderCanvas();
 }
 
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -81,7 +82,7 @@ function renderCanvas() {
 	} else {
 		paint();
 	}
-	requestAnimationFrame(renderCanvas);
+	// requestAnimationFrame(renderCanvas);
 }
 
 function success(position) {
