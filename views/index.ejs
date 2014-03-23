@@ -7,8 +7,13 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <label for="room-name">Room name:</label>
+    <input id="room-name" name="room-name" type="text">
+    <br>
+    <br>
+    <button id="initiate-game">Launch/Join!</button>
+    <canvas width="1920" height="1080">Your browser does not support the <code>canvas</code> element. Please try another browser.</canvas>
     <div class="accel"></div>
-    <div class="accelInterval"></div>
     <div id="myPublisherDiv"></div>
         <script type="text/javascript">
           // Initialize API key, session, and token...
