@@ -50,7 +50,14 @@ function paint_path(oldLocation, newLocation) {
 }
 
 function check_collision(user, enemy) {
+	for (var i = 1; i< enemyHistory.length; i++){
+		if (enemyHistory[i].x-currentLocation.x<5 && enemyHistory[i].y-currentLocation.y<5){
+			alert('You lost. :( Go back to the homepage to play again.');
+			socket.emit('lose', {
 
+			});	
+		}
+	}
 }
 
 var options = {
