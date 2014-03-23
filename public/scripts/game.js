@@ -47,10 +47,11 @@ function paint_path(oldLocation, newLocation) {
 	ctx.stroke();
 }
 
-function check_collision(user, enemy) {
+function check_collisions() {
 	for (var i = 1; i< enemyHistory.length; i++){
 		if (enemyHistory[i].x-currentLocation.x<5 && enemyHistory[i].y-currentLocation.y<5){
 			alert('You lost. :( Go back to the homepage to play again.');
+			return false;
 			socket.emit('lose', {
 
 			});	
@@ -94,6 +95,7 @@ function renderCanvas() {
 	} else {
 		paintEnemy();
 	}
+	check_collisions();
 	requestAnimationFrame(renderCanvas);
 }
 
@@ -130,7 +132,6 @@ function success(position) {
 		accuracy: currentLocation.accuracy
 	});
 	$('.accuracy').text(currentLocation.accuracy);
-	$('.history').text(history.length);
 };
 
 function displayError(err) {
