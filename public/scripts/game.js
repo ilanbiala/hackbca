@@ -116,8 +116,8 @@ function success(position) {
 		currentLocation.x = currentLong;
 		currentLocation.y = currentLat;
 	} else {
-		currentLocation.x = (position.coords.x - currentLong) * 50;
-		currentLocation.y = (position.coords.y - currentLat) * 50;
+		currentLocation.x += (position.coords.x - currentLong) * 50;
+		currentLocation.y += (position.coords.y - currentLat) * 50;
 		currentLong = currentLocation.x;
 		currentLat = currentLocation.y;
 	}
