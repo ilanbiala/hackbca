@@ -90,6 +90,7 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 	socket.on('enter_room', function(data) {
+		console.log('someone joined ' + data.room);
 		socket.join(data.room);
 	});
 });
