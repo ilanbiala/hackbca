@@ -108,15 +108,15 @@ function success(position) {
 		accuracy: null
 	};
 	if (position.coords.longitude < 0) {
-		currentLocation.x = 1024 + (position.coords.longitude * 1024 / 90);
+		currentLocation.x = 800 + (position.coords.longitude * 800 / 90);
 	} else {
-		currentLocation.x = position.coords.longitude * 1024 / 90;
+		currentLocation.x = position.coords.longitude * 800 / 90;
 	}
 	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
 	if (position.coords.latitude < 0) {
-		currentLocation.y = 768 + (position.coords.latitude * 768 / 180);
+		currentLocation.y = 600 + (position.coords.latitude * 600 / 180);
 	} else {
-		currentLocation.y = position.coords.latitude * 768 / 180;
+		currentLocation.y = position.coords.latitude * 600 / 180;
 	}
 	currentLocation.y = Math.floor(currentLocation.y % 0.01 * 100000);
 	currentLocation.speed = position.coords.speed;
