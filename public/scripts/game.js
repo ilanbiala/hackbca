@@ -118,7 +118,11 @@ function success(position) {
 	$('.location-y').text(currentLocation.y);
 	$('.speed').text(currentLocation.speed);
 	$('.accuracy').text(currentLocation.accuracy);
-	$('.history').text(history);
+	var historyString = '';
+	for (var i = 0; i < history.length; i++) {
+		historyString += history[i].x + ', ' + history[i].y + '<br>';
+	}
+	$('.history').html(historyString);
 };
 
 function displayError(err) {
