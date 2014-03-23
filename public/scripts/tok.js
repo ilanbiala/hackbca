@@ -25,10 +25,11 @@ $(document).ready(function(){
 	console.log('emitting new_tok_sesh');
 	socket.emit('new_tok_sesh', {room: roomName});
 	socket.on('tok_sesh_generated', function(data){
-		console.log('i got a session')
+		console.log('i got a session');
 		publisher = TB.initPublisher(apiKey);
 		tok_session_id = data.session_id;
 		tok_token = data.token;
+		console.log(tok_session_id);
 		session = TB.initSession(tok_session_id);
 		session.connect(apiKey, tok_token);
 
