@@ -1,3 +1,5 @@
+//deprecated
+
 var rooms = [];
 
 var receive = function(data) {
@@ -17,7 +19,7 @@ var join_room = function(data) {
 	} else if (sockets.clients(data.room) < 2) {
 		socket.join(data.room);
 		socket.set('nick', data.nick);
-		socekt.emit('room_joined', {
+		socket.emit('room_joined', {
 			room: data.room
 		});
 		res.redirect('/room/' + data.room);

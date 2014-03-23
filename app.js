@@ -46,9 +46,35 @@ app.get('/', function(req, res) {
 
 io.set('loglevel', 10);
 
+var rooms = [];
+
 io.sockets.on('connection', function(socket) {
-	socket.on('geodata_receive', geodata.receive);
-	socket.on('join_room', geodata.join_room);
+	socket.on('geodata_receive', function(data) {
+		var geodata = {};
+		console.log(data);
+	});
+	socket.on('join_room', function(data) {
+		if (rooms.indexOf(data.room) === -1) {
+			rooms.push(data.room);
+			socket.join(data.room);
+			socket.set('nick', data.nick);
+			socket.emit('room_joined', {
+				room: data.room
+			});
+			res.redirect('/room/' + data.room);
+		} else if (sockets.clients(data.room) < 2) {
+			socket.join(data.room);
+			socket.set('nick', data.nick);
+			socket.emit('room_joined', {
+				room: data.room
+			});
+			res.redirect('/room/' + data.room);
+		} else {
+			socket.emit('error', {
+				msg: 'room full'
+			});
+		}
+	});
 });
 
 server.listen(app.get('port'), function() {
