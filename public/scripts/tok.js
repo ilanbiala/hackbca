@@ -1,4 +1,6 @@
 var apiKey = "44704392";
+var publisher, session, tok_session_id, tok_token;
+
 
 // Initialize session, set up event listeners, and connect
 function sessionConnectedHandler(event) {
@@ -18,8 +20,6 @@ function subscribeToStreams(streams) {
 function streamCreatedHandler(event) {
 	subscribeToStreams(event.streams);
 }
-
-var publisher, session, tok_session_id, tok_token;
 
 $(document).ready(function(){
 	console.log('emitting new_tok_sesh');
