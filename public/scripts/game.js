@@ -86,11 +86,13 @@ function success(position) {
 	} else {
 		currentLocation.x = position.coords.longitude * 1920/90;
 	}
+	currentLocation.x = currentLocation.x % 1 * 1000;
 	if (position.coords.latitude < 0) {
 		currentLocation.y = 1080 + (position.coords.latitude * 1080/180);
 	} else {
 		currentLocation.y = position.coords.latitude * 1080/180;
 	}
+	currentLocation.y = currentLocation.y % 1 * 1000;
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	console.log(currentLocation);
