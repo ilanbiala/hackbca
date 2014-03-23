@@ -11,22 +11,36 @@
     <div class="accelInterval"></div>
     <div id="myPublisherDiv"></div>
         <script type="text/javascript">
-          // Initialize API key, session, and token...
-          // Think of a session as a room, and a token as the key to get in to the room
-          // Sessions and tokens are generated on your server and passed down to the client
-          var apiKey = "44704392";
-          var sessionId = "1_MX40NDcwNDM5Mn5-U2F0IE1hciAyMiAxNjowODoyNCBQRFQgMjAxNH4wLjc1MzAwMzk1fg";
-          var token = "T1==cGFydG5lcl9pZD00NDcwNDM5MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mMTQ5MjVlMmY5ZWUxNDg4OTAzZGQ2N2EzNjlhYmI0ZjA3YzRkNDRhOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9MV9NWDQwTkRjd05ETTVNbjUtVTJGMElFMWhjaUF5TWlBeE5qb3dPRG95TkNCUVJGUWdNakF4Tkg0d0xqYzFNekF3TXprMWZnJmNyZWF0ZV90aW1lPTEzOTU1Mjk3MDQmbm9uY2U9MC4xOTI3OTYyMDA4MjQwNTYyNCZleHBpcmVfdGltZT0xMzk1NjE2MTAyJmNvbm5lY3Rpb25fZGF0YT0=";
-
-          // Initialize session, set up event listeners, and connect
-          var session = TB.initSession(sessionId);
-          session.addEventListener('sessionConnected', sessionConnectedHandler);
-          session.connect(apiKey, token);
-          
-          function sessionConnectedHandler(event) {
-            var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
-            session.publish(publisher);
+          var apiKey    = "44704392";
+          var sessionId = "1_MX40NDcwNDM5Mn5-U2F0IE1hciAyMiAxNzowMzoyNCBQRFQgMjAxNH4wLjM5MzQ1NTc0fg";
+          var token     = "T1==cGFydG5lcl9pZD00NDcwNDM5MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz02OGNlYTY0MDI1ODVhZmQ5MjI2NDk4MjkxZTA5MTg4YzExYzBiOGFjOnJvbGU9c3Vic2NyaWJlciZzZXNzaW9uX2lkPTFfTVg0ME5EY3dORE01TW41LVUyRjBJRTFoY2lBeU1pQXhOem93TXpveU5DQlFSRlFnTWpBeE5INHdMak01TXpRMU5UYzBmZyZjcmVhdGVfdGltZT0xMzk1NTMzMDE1Jm5vbmNlPTAuODQ5MDMzNzYxOTU2NTM2JmV4cGlyZV90aW1lPTEzOTU1MzY1ODEmY29ubmVjdGlvbl9kYXRhPQ==";
+         
+          function sessionConnectedHandler (event) {
+             session.publish( publisher );
+             subscribeToStreams(event.streams);
           }
+          function subscribeToStreams(streams) {
+            for (var i = 0; i < streams.length; i++) {
+                var stream = streams[i];
+                if (stream.connection.connectionId 
+                       != session.connection.connectionId) {
+                    session.subscribe(stream);
+                }
+            }
+          }
+          function streamCreatedHandler(event) {
+            subscribeToStreams(event.streams);
+          }
+         
+          var publisher = TB.initPublisher(apiKey);
+          var session   = TB.initSession(sessionId);
+         
+          session.connect(apiKey, token);
+          session.addEventListener("sessionConnected", 
+                                   sessionConnectedHandler);
+         
+          session.addEventListener("streamCreated", 
+                                   streamCreatedHandler);
         </script>
     <script src="/scripts/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
