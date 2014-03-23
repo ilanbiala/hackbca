@@ -49,19 +49,8 @@ function paint_path(oldLocation, newLocation) {
 	ctx.stroke();
 }
 
-function check_collision(x, y, array) {
-	for (var i = 0; i < array.length; i++) {
-		if (array[i].x == x && array[i].y == y)
-			return true;
-	}
-	return false;
-}
-
-function handleDeviceMotion(eventData) {
-	socket.emit('geodata_receive', {
-		data: accel
-	});
-	history.push(accel);
+function check_collision(user, enemy) {
+	
 }
 
 var options = {
@@ -123,6 +112,12 @@ function success(position) {
 		currentLong = currentLocation.x;
 		currentLat = currentLocation.y;
 	}
+	if (currentLocation.x > 800 || currentLocation.x < 0 || currentLocation.y > 600 || currentLocation.y < 0) {
+		alert('You lost. :( Go back to the homepage to play again.');
+		socket.emit('lose', {
+
+		});
+	}
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
@@ -169,5 +164,9 @@ $(document).ready(function() {
 
 	socket.on('game_started', function() {
 		startGame();
+	});
+
+	socket.on('win', function() {
+		alert('You win! :) Go back to the homepage to play again.');
 	});
 });
