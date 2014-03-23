@@ -14,8 +14,8 @@ $(document).ready(function() {
 			var newURL = window.location.href + 'room/' + data.room;
 			window.location.href = newURL;
 		});
-		socket.on('error', function() {
-
+		socket.on('error', function(data) {
+			$('body').prepend('<div class="error">' + data.msg + '</div>')
 		});
 	});
 });
