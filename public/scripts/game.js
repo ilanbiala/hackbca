@@ -84,7 +84,7 @@ function renderCanvas() {
 		paint(history);
 	}
 	socket.emit('geodata_receive', {
-		room: roomName
+		room: roomName,
 		data: history
 	});
 	socket.on('geodata_send', function (data) {
