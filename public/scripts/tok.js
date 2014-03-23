@@ -4,7 +4,7 @@ var token = "T1==cGFydG5lcl9pZD00NDcwNDM5MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC4
 
 // Initialize session, set up event listeners, and connect
 function sessionConnectedHandler(event) {
-	session.publish(publisher);
+	//session.publish(publisher);
 	subscribeToStreams(event.streams);
 }
 
