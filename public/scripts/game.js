@@ -4,6 +4,7 @@ var accel = {
 	z: null
 };
 var history = [];
+var roomName = window.location.href.substring(window.location.href.lastIndexOf('/'));
 
 //Lets paint the snake now
 function paint() {
@@ -17,12 +18,6 @@ function paint() {
 		//Lets paint 10px wide cells
 		paint_cell(c.x, c.y);
 	}
-
-	//Lets paint the food
-	paint_cell(food.x, food.y);
-	//Lets paint the score
-	var score_text = "Score: " + score;
-	ctx.fillText(score_text, 5, h - 5);
 }
 
 //Lets first create a generic function to paint cells
@@ -49,10 +44,11 @@ $(document).ready(function() {
 		width = canvas.width(),
 		height = canvas.height();
 
-	if (!(window.DeviceOrientationEvent && window.DeviceMotionEvent)) {
-
-	} else {
+	if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
 		socket = io.connect(window.location.href);
+		socket.emit('enter_room', {
+			room:
+		});
 		window.addEventListener('devicemotion', handleDeviceMotion, false);
 
 		function handleDeviceMotion(eventData) {
