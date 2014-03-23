@@ -43,7 +43,7 @@ app.get('/room/:room', function(req, res) {
 		res.redirect('/error/full_room');
 	}
 	res.render('room/index', {
-		title: 'Snake'
+		title: 'RealTron'
 	});
 });
 
@@ -52,7 +52,7 @@ app.get('/error/:error', function(req, res) {
 		'full_room': 'That room is full!'
 	};
 	res.render('index', {
-		title: 'Snake',
+		title: 'RealTron',
 		error: msgs[req.params.error]
 	});
 });
