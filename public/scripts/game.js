@@ -9,7 +9,7 @@ var canvas = null,
 	height = null;
 
 function clearCanvas() {
-	context.clearRect(0, 0, 1920, 1080);
+	ctx.clearRect(0, 0, 1920, 1080);
 }
 
 //Lets paint the snake now
@@ -86,13 +86,13 @@ function success(position) {
 	} else {
 		currentLocation.x = position.coords.longitude * 1920/90;
 	}
-	currentLocation.x = currentLocation.x % 0.01 * 100000;
+	currentLocation.x = Math.floor(currentLocation.x % 0.001 * 1000000);
 	if (position.coords.latitude < 0) {
 		currentLocation.y = 1080 + (position.coords.latitude * 1080/180);
 	} else {
 		currentLocation.y = position.coords.latitude * 1080/180;
 	}
-	currentLocation.y = currentLocation.y % 0.01 * 100000;
+	currentLocation.y = Math.floor(currentLocation.y % 0.001 * 1000000);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	console.log(currentLocation);
@@ -101,6 +101,7 @@ function success(position) {
 	$('.location-y').text(currentLocation.y);
 	$('.speed').text(currentLocation.speed);
 	$('.accuracy').text(currentLocation.accuracy);
+	$('.history-length').text(history.length);
 };
 
 function displayError(err) {
