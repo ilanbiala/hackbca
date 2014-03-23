@@ -105,7 +105,7 @@ io.sockets.on('connection', function(socket) {
 	});
 	socket.on('disconnect', function() {
 		socket.get('room', function(err, room){
-			socket.leave(socket.get(room));
+			socket.leave(room);
 		});
 	});
 });
