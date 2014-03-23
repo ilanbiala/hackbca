@@ -99,16 +99,15 @@ function renderCanvas() {
 	requestAnimationFrame(renderCanvas);
 }
 
-	var currentLocation = {
-		x: null,
-		y: null,
-		speed: null,
-		accuracy: null
-	};
-
 function success(position) {
-
+	var currentLocation;
 	if (!(currentLat && currentLong)) {
+		currentLocation = {
+			x: null,
+			y: null,
+			speed: null,
+			accuracy: null
+		};
 		currentLong = position.coords.longitude;
 		currentLat = position.coords.latitude;
 		currentLocation.x = Math.floor(Math.random() * 801);
