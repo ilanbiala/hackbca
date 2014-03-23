@@ -3,24 +3,33 @@ var roomWidth,
 var history = [];
 var roomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
+var canvas = null,
+	ctx = null,
+	width = null,
+	height = null;
+
+function clearCanvas() {
+	context.clearRect(0, 0, 1920, 1080);
+}
+
 //Lets paint the snake now
 function paint() {
 	ctx.fillStyle = "white";
-	ctx.fillRect(0, 0, w, h);
-	ctx.strokeStyle = "black";
-	ctx.strokeRect(0, 0, w, h);
+	ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-	for (var i = 0; i < snake_array.length; i++) {
-		var c = snake_array[i];
+	ctx.fillStyle = 'yellow';
+
+	for (var i = 0; i < history.length; i++) {
+		var location = history[i];
 		//Lets paint 10px wide cells
-		paint_cell(c.x, c.y);
+		paint_cell(location.x, location.y);
 	}
 }
 
 //Lets first create a generic function to paint cells
 function paint_cell(x, y) {
-	ctx.fillStyle = "yellow";
-	ctx.fillRect(1, 1, x, y);
+	ctx.fillStyle = 'yellow';
+	ctx.fillRect(x, y, 25, 25);
 }
 
 function check_collision(x, y, array) {
@@ -60,7 +69,7 @@ function startGame() {
 
 function success(position) {
 	currentLocation.x = position.coords.latitude;
-	currentLocation.y = postion.coords.longitude;
+	currentLocation.y = position.coords.longitude;
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	history.push(currentLocation);
@@ -73,10 +82,10 @@ function displayError(err) {
 };
 
 $(document).ready(function() {
-	var canvas = $('canvas'),
-		ctx = canvas[0].getContext('2d'),
-		width = canvas.width(),
-		height = canvas.height();
+	canvas = $('canvas');
+	ctx = $('canvas')[0].getContext('2d');
+	canvasWidth = canvas.width();
+	canvasHeight = canvas.height();
 
 	socket = io.connect('http://' + window.location.hostname);
 	socket.emit('enter_room', {
