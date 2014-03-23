@@ -16,8 +16,8 @@ function clearCanvas() {
 function paint(array) {
 	for (var i = 1; i < array.length; i++) {
 		var oldLocation = array[i - 1];
-		var currentLocation = array[i];
-		paint_path(oldLocation, currentLocation);
+		var newLocation = array[i];
+		paint_path(oldLocation, newLocation);
 	}
 }
 
@@ -26,13 +26,13 @@ function paint_cell(x, y) {
 	ctx.fillRect(x, y, 25, 25);
 }
 
-function paint_path(oldLocation, currentLocation) {
+function paint_path(oldLocation, newLocation) {
 	ctx.lineWidth = 10;
 	ctx.beginPath();
 	// console.log('old location: ' + oldLocation.x, oldLocation.y);
 	// console.log('current locaiton: ' + currentLocation.x, currentLocation.y);
 	ctx.moveTo(oldLocation.x, oldLocation.y);
-	ctx.lineTo(currentLocation.x, currentLocation.y);
+	ctx.lineTo(newLocation.x, newLocation.y);
 	ctx.stroke();
 }
 
