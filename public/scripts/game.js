@@ -112,13 +112,13 @@ function success(position) {
 	} else {
 		currentLocation.x = position.coords.longitude * 1024 / 90;
 	}
-	currentLocation.x = Math.floor(currentLocation.x % 0.001 * 1000000);
+	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
 	if (position.coords.latitude < 0) {
 		currentLocation.y = 768 + (position.coords.latitude * 768 / 180);
 	} else {
 		currentLocation.y = position.coords.latitude * 768 / 180;
 	}
-	currentLocation.y = Math.floor(currentLocation.y % 0.001 * 1000000);
+	currentLocation.y = Math.floor(currentLocation.y % 0.01 * 100000);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
