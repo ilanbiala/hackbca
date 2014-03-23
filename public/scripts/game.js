@@ -14,11 +14,7 @@ function clearCanvas() {
 
 //Lets paint the snake now
 function paint() {
-	ctx.fillStyle = "white";
-	ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
 	ctx.fillStyle = 'yellow';
-
 	for (var i = 0; i < history.length; i++) {
 		var oldLocation = history[i - 1];
 		var currentLocation = history[i];
