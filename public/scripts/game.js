@@ -103,13 +103,15 @@ function renderCanvas() {
 	requestAnimationFrame(renderCanvas);
 }
 
-function success(position) {
 	var currentLocation = {
 		x: null,
 		y: null,
 		speed: null,
 		accuracy: null
 	};
+
+function success(position) {
+
 	if (!(currentLat && currentLong)) {
 		currentLong = Math.floor(Math.random() * 801);
 		currentLat = Math.floor(Math.random() * 601);
