@@ -50,7 +50,7 @@ function paint_path(oldLocation, newLocation) {
 }
 
 function check_collision(user, enemy) {
-	
+
 }
 
 var options = {
@@ -102,15 +102,15 @@ function renderCanvas() {
 function success(position) {
 
 	if (!(currentLat && currentLong)) {
-		currentLong = Math.floor(Math.random() * 801);
-		currentLat = Math.floor(Math.random() * 601);
-		currentLocation.x = currentLong;
-		currentLocation.y = currentLat;
+		currentLong = position.coords.x;
+		currentLat = position.coords.y;
+		currentLocation.x = Math.floor(Math.random() * 801);
+		currentLocation.y = Math.floor(Math.random() * 601);
 	} else {
 		currentLocation.x += (position.coords.x - currentLong) * 50;
 		currentLocation.y += (position.coords.y - currentLat) * 50;
-		currentLong = currentLocation.x;
-		currentLat = currentLocation.y;
+		currentLong = position.coords.x;
+		currentLat = position.coords.y;
 	}
 	if (currentLocation.x > 800 || currentLocation.x < 0 || currentLocation.y > 600 || currentLocation.y < 0) {
 		alert('You lost. :( Go back to the homepage to play again.');
