@@ -108,13 +108,13 @@ function success(position) {
 		accuracy: null
 	};
 	if (position.coords.longitude < 0) {
-		currentLocation.x = 800 + (position.coords.longitude * 800 / 90);
+		currentLocation.x = 800/2 + (position.coords.longitude * 800 / 90);
 	} else {
 		currentLocation.x = position.coords.longitude * 800 / 90;
 	}
 	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
 	if (position.coords.latitude < 0) {
-		currentLocation.y = 600 + (position.coords.latitude * 600 / 180);
+		currentLocation.y = 600/2 + (position.coords.latitude * 600 / 180);
 	} else {
 		currentLocation.y = position.coords.latitude * 600 / 180;
 	}
