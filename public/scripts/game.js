@@ -61,18 +61,23 @@ var currentLocation = {
 	accuracy: null
 };
 
+var watch;
+
 function startGame() {
 	if (navigator.geolocation) {
-		currentLocation = navigator.geolocation.watchPosition(success, displayError, options);
+		watch = navigator.geolocation.watchPosition(success, displayError, options);
 	}
 }
 
 function success(position) {
-	currentLocation.x = Math.pi/180*6367449*Math.cos(position.coords.longitude);
+	currentLocation.x = Math.PI/180*6367449*Math.cos(position.coords.longitude);
 	currentLocation.y = 111132.954-559.822*Math.cos(2*position.coords.latitude)+1.175*Math.cos(4*position.coords.latitude);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
+	console.log(currentLocation);
 	history.push(currentLocation);
+	$('.location-x').text(currentLocation.x);
+	$('.location-y').text(currentLocation.y);
 	$('.speed').text(currentLocation.speed);
 	$('.accuracy').text(currentLocation.accuracy);
 };
