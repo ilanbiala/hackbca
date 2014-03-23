@@ -13,7 +13,7 @@ var currentLat = null,
 	currentLong = null;
 
 function clearCanvas() {
-	ctx.clearRect(0, 0, 1920, 1080);
+	ctx.clearRect(0, 0, 800, 600);
 }
 
 function paintUser() {
@@ -42,8 +42,6 @@ function paint_cell(x, y) {
 function paint_path(oldLocation, newLocation) {
 	ctx.lineWidth = 10;
 	ctx.beginPath();
-	// console.log('old location: ' + oldLocation.x, oldLocation.y);
-	// console.log('current locaiton: ' + currentLocation.x, currentLocation.y);
 	ctx.moveTo(oldLocation.x, oldLocation.y);
 	ctx.lineTo(newLocation.x, newLocation.y);
 	ctx.stroke();
@@ -125,7 +123,12 @@ function success(position) {
 	}
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
-	history.push(currentLocation);
+	debugger;
+	history.push({
+		x: currentLocation.x,
+		y: currentLocation.y,
+		accuracy: currentLocation.accuracy
+	});
 	$('.accuracy').text(currentLocation.accuracy);
 	$('.history').text(history.length);
 };
@@ -150,20 +153,6 @@ $(document).ready(function() {
 		socket.emit('start_game', {
 
 		});
-		// if (data.requestArea) {
-		// $('#gameModal').modal('show');
-		// $('#startGame').on('click', function() {
-		// roomLength = $('#room-length').val();
-		// roomWidth = $('#room-width').val();
-		// if (!(roomWidth.length > 0 && roomLength.length > 0)) {
-		// return false;
-		// }
-		// socket.emit('start_game', {
-
-		// });
-		// $('#gameModal').modal('hide');
-		// });
-		// }
 	});
 
 	socket.on('game_started', function() {
@@ -171,6 +160,6 @@ $(document).ready(function() {
 	});
 
 	socket.on('win', function() {
-		alert('You win! :) Go back to the homepage to play again.');
+		alert('You won! :) Go back to the homepage to play again.');
 	});
 });
