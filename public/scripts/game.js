@@ -50,7 +50,14 @@ function paint_path(oldLocation, newLocation) {
 }
 
 function check_collision(user, enemy) {
+	for (var i = 1; i< enemyHistory.length; i++){
+		if (enemyHistory[i].x-currentLocation.x<5 && enemyHistory[i].y-currentLocation.y<5){
+			alert('You lost. :( Go back to the homepage to play again.');
+			socket.emit('lose', {
 
+			});	
+		}
+	}
 }
 
 var options = {
@@ -102,15 +109,16 @@ function renderCanvas() {
 function success(position) {
 
 	if (!(currentLat && currentLong)) {
-		currentLong = position.coords.x;
-		currentLat = position.coords.y;
+		currentLong = position.coords.longitude;
+		currentLat = position.coords.latitude;
 		currentLocation.x = Math.floor(Math.random() * 801);
 		currentLocation.y = Math.floor(Math.random() * 601);
 	} else {
-		currentLocation.x += (position.coords.x - currentLong) * 50;
-		currentLocation.y += (position.coords.y - currentLat) * 50;
-		currentLong = position.coords.x;
-		currentLat = position.coords.y;
+		$('.movement').html((position.coords.longitude - currentLong) * 1500000);
+		currentLocation.x += (position.coords.longitude - currentLong) * 1500000;
+		currentLocation.y += (position.coords.latitude - currentLat) * 1500000;
+		currentLong = position.coords.longitude;
+		currentLat = position.coords.latitude;
 	}
 	if (currentLocation.x > 800 || currentLocation.x < 0 || currentLocation.y > 600 || currentLocation.y < 0) {
 		alert('You lost. :( Go back to the homepage to play again.');
