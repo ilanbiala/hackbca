@@ -46,20 +46,23 @@ function handleDeviceMotion(eventData) {
 
 var options = {
 	enableHighAccuracy: true,
-	timeout: 15000,
-	maximumAge: 0
+	timeout: 15000
 };
+
+var currentLocation;
 
 function startGame() {
 	if (navigator.geolocation) {
-		id = navigator.geolocation.watchPosition(success, displayError, options);
+		currentLocation = navigator.geolocation.watchPosition(success, displayError, options);
 	}
 }
 
 function success(position) {
 	coords = position.coords;
-	speed = position.coords.speed;
+	speed = coords.speed;
+	accuracy = coords.accuracy;
 	$('.speed').text(speed);
+	$('.accuracy').text(accuracy);
 };
 
 function displayError(err) {
