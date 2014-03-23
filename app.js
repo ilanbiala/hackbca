@@ -65,7 +65,6 @@ io.sockets.on('connection', function(socket) {
 			socket.emit('room_joined', {
 				room: data.room
 			});
-			// res.redirect('/room/' + data.room);
 		} else {
 			socket.emit('error', {
 				msg: 'room full'
