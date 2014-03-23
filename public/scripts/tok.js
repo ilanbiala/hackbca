@@ -30,7 +30,7 @@ $(document).ready(function(){
 		tok_session_id = data.session_id;
 		tok_token = data.token;
 		session = TB.initSession(tok_session_id);
-		session.connect(apiKey, token);
+		session.connect(apiKey, tok_token);
 
 		session.addEventListener("sessionConnected", sessionConnectedHandler);
 		session.addEventListener("streamCreated", streamCreatedHandler);
