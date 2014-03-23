@@ -60,10 +60,38 @@ function handleDeviceMotion(eventData) {
 }
 
 function startGame() {
-	if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
-		window.addEventListener('devicemotion', handleDeviceMotion, false);
+	if (navigator.geolocation) {
+		id = navigator.geolocation.watchPosition(success, error, options);
 	}
 }
+
+var id,
+	target,
+	option;
+
+function success(pos) {
+	var crd = pos.coords;
+
+	if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+		console.log('Congratulation, you reach the target');
+		navigator.geolocation.clearWatch(id);
+	}
+};
+
+function error(err) {
+	console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+target = {
+	latitude: 0,
+	longitude: 0,
+}
+
+options = {
+	enableHighAccuracy: true,
+	timeout: 5000,
+	maximumAge: 0
+};
 
 $(document).ready(function() {
 	var canvas = $('canvas'),
