@@ -52,7 +52,7 @@ app.get('/error/:error', function(req, res) {
 	};
 	res.render('index', {
 		title: 'Snake',
-		error: msgs[req.params.room]
+		error: msgs[req.params.error]
 	});
 });
 
@@ -90,8 +90,17 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 	socket.on('enter_room', function(data) {
-		console.log('someone joined ' + data.room);
 		socket.join(data.room);
+		if (io.sockets.clients(data.room).length === 1) {
+			socket.emit('room_entered', {
+				requestArea: true
+			});
+		} else {
+			socket.emit('room_entered', {
+				requestArea: false
+			});
+		}
+
 	});
 });
 
