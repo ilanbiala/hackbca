@@ -111,9 +111,8 @@ io.sockets.on('connection', function(socket) {
 			var py = spawn('python', ['tok/tok.py']);
 			py.stdout.on('data', function(data){
 				d = data.toString().split('$');
-				console.log(d[0]);
-				console.log(d[1]);
-				io.sockets.in(room).emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
+				socket.broadcast.to(room).emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
+				socket.emit('tok_sesh_generated', {session_id: d[0], token:d[2]})
 			});
 			py.stderr.on('data', function(data){
 				console.error(data.toString());
