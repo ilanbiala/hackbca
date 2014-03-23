@@ -2,8 +2,6 @@ var roomWidth,
 	roomLength;
 var history = [];
 var roomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-var coords;
-var speed;
 
 //Lets paint the snake now
 function paint() {
@@ -21,10 +19,8 @@ function paint() {
 
 //Lets first create a generic function to paint cells
 function paint_cell(x, y) {
-	ctx.fillStyle = "blue";
-	ctx.fillRect(x * cw, y * cw, cw, cw);
-	ctx.strokeStyle = "white";
-	ctx.strokeRect(x * cw, y * cw, cw, cw);
+	ctx.fillStyle = "yellow";
+	ctx.fillRect(1, 1, x, y);
 }
 
 function check_collision(x, y, array) {
