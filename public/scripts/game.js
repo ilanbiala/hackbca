@@ -84,6 +84,7 @@ function renderCanvas() {
 		paint(history);
 	}
 	socket.emit('geodata_receive', {
+		room: roomName
 		data: history
 	});
 	socket.on('geodata_send', function (data) {
@@ -140,7 +141,7 @@ $(document).ready(function() {
 		socket.emit('start_game', {
 
 		});
-		if (data.requestArea) {
+		// if (data.requestArea) {
 			// $('#gameModal').modal('show');
 			// $('#startGame').on('click', function() {
 				// roomLength = $('#room-length').val();
@@ -153,7 +154,7 @@ $(document).ready(function() {
 				// });
 				// $('#gameModal').modal('hide');
 			// });
-		}
+		// }
 	});
 
 	socket.on('game_started', function() {
