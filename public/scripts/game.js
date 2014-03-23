@@ -132,6 +132,7 @@ function success(position) {
 	$('.speed').text(currentLoc.speed);
 	$('.accuracy').text(currentLoc.accuracy);
 	$('.history').text(history.length);
+	currentLocation = currentLoc;
 };
 
 function displayError(err) {
