@@ -1,7 +1,7 @@
 var socket;
 
 $(document).ready(function() {
-	socket = io.connect('http://localhost/');
+	socket = io.connect(window.location.href);
 
 	$('#initiate-game').on('click', function() {
 		var roomName = $('#room-name').val();
