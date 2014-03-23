@@ -12,7 +12,6 @@ function clearCanvas() {
 	ctx.clearRect(0, 0, 1920, 1080);
 }
 
-//Lets paint the snake now
 function paint() {
 	ctx.fillStyle = 'yellow';
 	for (var i = 1; i < history.length; i++) {
@@ -27,7 +26,6 @@ function paint_cell(x, y) {
 	ctx.fillRect(x, y, 25, 25);
 }
 
-//Lets first create a generic function to paint cells
 function paint_path(oldLocation, currentLocation) {
 	ctx.fillStyle = 'yellow';
 	ctx.beginPath();
@@ -37,8 +35,6 @@ function paint_path(oldLocation, currentLocation) {
 }
 
 function check_collision(x, y, array) {
-	//This function will check if the provided x/y coordinates exist
-	//in an array of cells or not
 	for (var i = 0; i < array.length; i++) {
 		if (array[i].x == x && array[i].y == y)
 			return true;
