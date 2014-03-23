@@ -107,29 +107,30 @@ var currentLocation = {
 };
 
 function success(position) {
+	var currentLoc = currentLocation;
 	if (!(currentLat && currentLong)) {
 		currentLong = position.coords.longitude;
 		currentLat = position.coords.latitude;
-		currentLocation.x = Math.floor(Math.random() * 801);
-		currentLocation.y = Math.floor(Math.random() * 601);
+		currentLoc.x = Math.floor(Math.random() * 801);
+		currentLoc.y = Math.floor(Math.random() * 601);
 	} else {
-		currentLocation.x += (position.coords.longitude - currentLong) * 1500000;
-		currentLocation.y += (position.coords.latitude - currentLat) * 1500000;
+		currentLoc.x += (position.coords.longitude - currentLong) * 1500000;
+		currentLoc.y += (position.coords.latitude - currentLat) * 1500000;
 		currentLong = position.coords.longitude;
 		currentLat = position.coords.latitude;
 	}
-	if (currentLocation.x > 800 || currentLocation.x < 0 || currentLocation.y > 600 || currentLocation.y < 0) {
+	if (currentLoc.x > 800 || currentLoc.x < 0 || currentLoc.y > 600 || currentLoc.y < 0) {
 		alert('You lost. :( Go back to the homepage to play again.');
 		socket.emit('lose', {
 
 		});
 	}
-	currentLocation.speed = position.coords.speed;
-	currentLocation.accuracy = position.coords.accuracy;
-	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
-	history.push(currentLocation);
-	$('.speed').text(currentLocation.speed);
-	$('.accuracy').text(currentLocation.accuracy);
+	currentLoc.speed = position.coords.speed;
+	currentLoc.accuracy = position.coords.accuracy;
+	$('.currentLocation').html(currentLoc.x + ', ' + currentLoc.y);
+	history.push(currentLoc);
+	$('.speed').text(currentLoc.speed);
+	$('.accuracy').text(currentLoc.accuracy);
 	$('.history').text(history.length);
 };
 
