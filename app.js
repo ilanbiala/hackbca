@@ -65,7 +65,7 @@ io.configure(function() {
 
 io.sockets.on('connection', function(socket) {
 	socket.on('geodata_receive', function(data) {
-		var geodata = {};
+		socket.broadcast.to(data.room).emit('geodata_send', data);
 		console.log(data);
 	});
 	socket.on('join_room', function(data) {
