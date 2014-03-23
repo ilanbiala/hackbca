@@ -63,8 +63,6 @@ io.configure(function() {
 	io.set("polling duration", 10);
 });
 
-var rooms = [];
-
 io.sockets.on('connection', function(socket) {
 	socket.on('geodata_receive', function(data) {
 		var geodata = {};
@@ -72,8 +70,7 @@ io.sockets.on('connection', function(socket) {
 	});
 	socket.on('join_room', function(data) {
 		console.log(io.sockets.clients(data.room).length);
-		if (rooms.indexOf(data.room) === -1) {
-			rooms.push(data.room);
+		if (io.sockets.manager.rooms.indexOf(data.room) === -1) {
 			socket.set('room', data.room);
 			socket.emit('room_joined', {
 				room: data.room
@@ -101,6 +98,9 @@ io.sockets.on('connection', function(socket) {
 			});
 		}
 	});
+	socket.on('start_game', function(data) {
+		io.sockets. in (socket.get('room')).emit('game_started');
+	})
 	socket.on('disconnect', function() {
 		socket.leave(socket.get('room'));
 	});
