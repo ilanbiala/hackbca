@@ -120,13 +120,14 @@ function displayError(err) {
 	console.warn('ERROR(' + err.code + '): ' + err.message);
 };
 
+var socket = io.connect('http://' + window.location.hostname);
+
 $(document).ready(function() {
 	canvas = $('canvas');
 	ctx = $('canvas')[0].getContext('2d');
 	canvasWidth = canvas.width();
 	canvasHeight = canvas.height();
 
-	socket = io.connect('http://' + window.location.hostname);
 	socket.emit('enter_room', {
 		room: roomName
 	});

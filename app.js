@@ -5,7 +5,8 @@
 var express = require('express'),
 	routes = require('./routes'),
 	http = require('http'),
-	path = require('path');
+	path = require('path'),
+	spawn = require('child_process').spawn;
 
 var app = express(),
 	server = http.createServer(app),
@@ -101,6 +102,13 @@ io.sockets.on('connection', function(socket) {
 	socket.on('start_game', function(data) {
 		socket.get('room', function(err, room){
 			io.sockets.in(room).emit('game_started', {});
+		});
+	});
+	socket.on('new_tok_sesh', function(){
+		var py = spawn('python', ['tok/tok.py']);
+		py.stdout.on('data', function(data){
+			d = data.split(',');
+			socket.emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
 		});
 	});
 	socket.on('disconnect', function() {
