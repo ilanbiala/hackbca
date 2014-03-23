@@ -28,6 +28,7 @@ function paint_cell(x, y) {
 
 function paint_path(oldLocation, currentLocation) {
 	ctx.fillStyle = 'yellow';
+	ctx.lineWidth = 5;
 	ctx.beginPath();
 	ctx.moveTo(oldLocation.x, oldLocation.y);
 	ctx.lineTo(currentLocation.x, currentLocation.y);
