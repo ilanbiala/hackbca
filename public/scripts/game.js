@@ -20,16 +20,24 @@ function paint() {
 	ctx.fillStyle = 'yellow';
 
 	for (var i = 0; i < history.length; i++) {
-		var location = history[i];
-		//Lets paint 25px wide cells
-		paint_cell(location.x, location.y);
+		var oldLocation = history[i - 1];
+		var currentLocation = history[i];
+		paint_path(oldLocation, currentLocation);
 	}
 }
 
-//Lets first create a generic function to paint cells
 function paint_cell(x, y) {
 	ctx.fillStyle = 'yellow';
 	ctx.fillRect(x, y, 25, 25);
+}
+
+//Lets first create a generic function to paint cells
+function paint_path(oldLocation, currentLocation) {
+	ctx.fillStyle = 'yellow';
+	ctx.beginPath();
+	ctx.moveTo(oldLocation.x, oldLocation.y);
+	ctx.lineTo(currentLocation.x, currentLocation.y);
+	ctx.stroke();
 }
 
 function check_collision(x, y, array) {
@@ -71,26 +79,30 @@ function startGame() {
 }
 
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+	window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 function renderCanvas() {
 	clearCanvas();
-	paint();
+	if (history.length === 1) {
+		paint_cell();
+	} else {
+		paint();
+	}
 	requestAnimationFrame(renderCanvas);
 }
 
 function success(position) {
 	console.log(position);
 	if (position.coords.longitude < 0) {
-		currentLocation.x = 1920 + (position.coords.longitude * 1920/90);
+		currentLocation.x = 1920 + (position.coords.longitude * 1920 / 90);
 	} else {
-		currentLocation.x = position.coords.longitude * 1920/90;
+		currentLocation.x = position.coords.longitude * 1920 / 90;
 	}
 	currentLocation.x = Math.floor(currentLocation.x % 0.001 * 1000000);
 	if (position.coords.latitude < 0) {
-		currentLocation.y = 1080 + (position.coords.latitude * 1080/180);
+		currentLocation.y = 1080 + (position.coords.latitude * 1080 / 180);
 	} else {
-		currentLocation.y = position.coords.latitude * 1080/180;
+		currentLocation.y = position.coords.latitude * 1080 / 180;
 	}
 	currentLocation.y = Math.floor(currentLocation.y % 0.001 * 1000000);
 	currentLocation.speed = position.coords.speed;
