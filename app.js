@@ -43,6 +43,11 @@ app.get('/room/:room', function(req, res) {
 
 io.set('loglevel', 10);
 
+io.configure(function() {
+	io.set("transports", ["xhr-polling"]);
+	io.set("polling duration", 10);
+});
+
 var rooms = [];
 
 io.sockets.on('connection', function(socket) {
