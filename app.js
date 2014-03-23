@@ -112,13 +112,16 @@ io.sockets.on('connection', function(socket) {
 			py.stdout.on('data', function(data){
 				d = data.toString().split('$');
 				socket.broadcast.to(room).emit('tok_sesh_generated', {session_id: d[0], token: d[1]});
-				socket.emit('tok_sesh_generated', {session_id: d[0], token:d[2]})
+				socket.emit('tok_sesh_generated', {session_id: d[0], token: d[2]});
 			});
 			py.stderr.on('data', function(data){
 				console.error(data.toString());
 			});
 		}
 	});
+	socket.on('lose', function(data){
+		socket.broadcast.to(socket.room).emit('win', {});
+	})
 	socket.on('disconnect', function() {
 		socket.get('room', function(err, room){
 			socket.leave(room);
