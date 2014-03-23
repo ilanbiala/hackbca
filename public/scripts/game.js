@@ -31,8 +31,6 @@ function paint_cell(x, y) {
 function paint_path(oldLocation, currentLocation) {
 	ctx.fillStyle = 'yellow';
 	ctx.beginPath();
-	console.log(oldLocation);
-	console.log(currentLocation);
 	ctx.moveTo(oldLocation.x, oldLocation.y);
 	ctx.lineTo(currentLocation.x, currentLocation.y);
 	ctx.stroke();
