@@ -49,7 +49,12 @@ var options = {
 	timeout: 15000
 };
 
-var currentLocation;
+var currentLocation = {
+	x: null,
+	y: null,
+	speed: null,
+	accuracy: null
+};
 
 function startGame() {
 	if (navigator.geolocation) {
@@ -58,11 +63,13 @@ function startGame() {
 }
 
 function success(position) {
-	coords = position.coords;
-	speed = coords.speed;
-	accuracy = coords.accuracy;
-	$('.speed').text(speed);
-	$('.accuracy').text(accuracy);
+	currentLocation.x = position.coords.latitude;
+	currentLocation.y = postion.coords.longitude;
+	currentLocation.speed = position.coords.speed;
+	currentLocation.accuracy = position.coords.accuracy;
+	history.push(currentLocation);
+	$('.speed').text(currentLocation.speed);
+	$('.accuracy').text(currentLocation.accuracy);
 };
 
 function displayError(err) {
