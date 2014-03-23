@@ -98,6 +98,9 @@ io.sockets.on('connection', function(socket) {
 			});
 		}
 	});
+	socket.on('start_game', function(data) {
+		io.sockets. in (socket.get('room')).emit('game_started');
+	})
 	socket.on('disconnect', function() {
 		socket.leave(socket.get('room'));
 	});
