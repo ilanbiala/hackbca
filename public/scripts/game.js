@@ -3,6 +3,8 @@ var accel = {
 	y: null,
 	z: null
 };
+var roomWidth,
+	roomLength;
 var history = [];
 var roomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
@@ -38,6 +40,31 @@ function check_collision(x, y, array) {
 	return false;
 }
 
+function handleDeviceMotion(eventData) {
+
+	// Grab the acceleration including gravity from the results
+	var acceleration = eventData.accelerationIncludingGravity;
+	accel.x = acceleration.x.toFixed(3);
+	accel.y = acceleration.y.toFixed(3);
+	accel.z = acceleration.z.toFixed(3);
+
+	var accelString = '';
+	accelString += 'landscape/portrait: ' + accel.x + '<br>';
+	accelString += 'parallax: ' + accel.y + '<br>';
+	accelString += 'up/down: ' + accel.z + '<br>';
+	$('.accel').html(accelString);
+	socket.emit('geodata_receive', {
+		data: accel
+	});
+	history.push(accel);
+}
+
+function startGame() {
+	if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
+		window.addEventListener('devicemotion', handleDeviceMotion, false);
+	}
+}
+
 $(document).ready(function() {
 	var canvas = $('canvas'),
 		ctx = canvas[0].getContext('2d'),
@@ -49,26 +76,20 @@ $(document).ready(function() {
 		room: roomName
 	});
 
-	if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
-		window.addEventListener('devicemotion', handleDeviceMotion, false);
-
-		function handleDeviceMotion(eventData) {
-
-			// Grab the acceleration including gravity from the results
-			var acceleration = eventData.accelerationIncludingGravity;
-			accel.x = acceleration.x.toFixed(3);
-			accel.y = acceleration.y.toFixed(3);
-			accel.z = acceleration.z.toFixed(3);
-
-			var accelString = '';
-			accelString += 'landscape/portrait: ' + accel.x + '<br>';
-			accelString += 'parallax: ' + accel.y + '<br>';
-			accelString += 'up/down: ' + accel.z + '<br>';
-			$('.accel').html(accelString);
-			socket.emit('geodata_receive', {
-				data: accel
+	socket.on('room_entered', function(data) {
+		if (data.requestArea) {
+			$('#gameModal').modal('show');
+			$('#startGame').on('click', function() {
+				roomLength = $('#room-length').val();
+				roomWidth = $('#room-width').val();
+				if (!(roomWidth.length > 0 && roomLength.length > 0)) {
+					return false;
+				}
+				$('#gameModal').modal('hide');
+				startGame();
 			});
-			history.push(accel);
+		} else {
+			startGame();
 		}
-	}
+	});
 });
