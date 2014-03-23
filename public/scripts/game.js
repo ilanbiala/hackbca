@@ -54,7 +54,8 @@ function check_collisions() {
 			return false;
 			socket.emit('lose', {
 
-			});	
+			});
+			window.location.href = '/';
 		}
 	}
 }
@@ -161,6 +162,11 @@ $(document).ready(function() {
 	});
 
 	socket.on('win', function() {
+<<<<<<< HEAD
+		alert('You win! :) Go back to the homepage to play again.');
+		window.location.href = '/';
+=======
 		alert('You won! :) Go back to the homepage to play again.');
+>>>>>>> 861736f7217fe29be5753355e1f7e59d06587d32
 	});
 });
