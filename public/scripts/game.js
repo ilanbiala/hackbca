@@ -1,6 +1,7 @@
 var roomWidth,
 	roomLength;
 var history = [];
+var enemyHistory = [];
 var roomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
 var canvas = null,
@@ -12,11 +13,11 @@ function clearCanvas() {
 	ctx.clearRect(0, 0, 1920, 1080);
 }
 
-function paint() {
+function paint(array) {
 	ctx.fillStyle = 'yellow';
-	for (var i = 1; i < history.length; i++) {
-		var oldLocation = history[i - 1];
-		var currentLocation = history[i];
+	for (var i = 1; i < array.length; i++) {
+		var oldLocation = array[i - 1];
+		var currentLocation = array[i];
 		paint_path(oldLocation, currentLocation);
 	}
 }
@@ -52,7 +53,7 @@ function handleDeviceMotion(eventData) {
 
 var options = {
 	enableHighAccuracy: true,
-	timeout: 15000
+	timeout: 20000
 };
 
 var currentLocation = {
@@ -80,7 +81,18 @@ function renderCanvas() {
 	if (history.length == 1) {
 		paint_cell(history[0].x, history[0].y);
 	} else {
-		paint();
+		paint(history);
+	}
+	socket.emit('geodata_receive', {
+		data: history
+	});
+	socket.on('geodata_send', function (data) {
+		enemyHistory = data;
+	});
+	if (enemyHistory.length == 1) {
+		paint_cell(enemyHistory[0].x, enemyHistory[0].y);
+	} else {
+		paint(enemyHistory);
 	}
 	// requestAnimationFrame(renderCanvas);
 }
