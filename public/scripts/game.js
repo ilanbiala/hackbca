@@ -9,8 +9,8 @@ var canvas = null,
 	width = null,
 	height = null;
 
-var initialLat = null,
-	initialLong = null;
+var currentLat = null,
+	currentLong = null;
 
 function clearCanvas() {
 	ctx.clearRect(0, 0, 1920, 1080);
@@ -110,12 +110,17 @@ function success(position) {
 		speed: null,
 		accuracy: null
 	};
-	if (!(initialLat && initialLong)) {
-		currentLocation.x = initialLong;
-		currentLocation.y = initialLat;
+	if (!(currentLat && currentLong)) {
+		currentLong = Math.floor(Math.random() * 801);
+		currentLat = Math.floor(Math.random() * 601);
+		currentLocation.x = currentLong;
+		currentLocation.y = currentLat;
+	} else {
+		currentLocation.x = (position.coords.x - currentLong) * 50;
+		currentLocation.y = (position.coords.y - currentLat) * 50;
+		currentLong = currentLocation.x;
+		currentLat = currentLocation.y;
 	}
-	currentLocation.x = Math.floor(40000 * Math.abs(position.coords.x - initialLong));
-	currentLocation.y = Math.floor(30000 * Math.abs(position.coords.y - initialLat));
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
