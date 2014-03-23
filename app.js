@@ -31,17 +31,32 @@ if ('development' == app.get('env')) {
 
 app.get('/', function(req, res) {
 	res.render('index', {
-		title: 'Snake'
+		title: 'Snake',
+		error: null
 	});
 });
 
 app.get('/room/:room', function(req, res) {
+	console.log(io.sockets.clients(req.params.room).length);
+	if (io.sockets.clients(req.params.room).length >= 2) {
+		res.redirect('/error/full_room');
+	}
 	res.render('room/index', {
 		title: 'Snake'
 	});
 });
 
-io.set('loglevel', 10);
+app.get('/error/:error', function(req, res) {
+	var msgs = {
+		'full_room': 'That room is full!'
+	};
+	res.render('index', {
+		title: 'Snake',
+		error: msgs[req.params.room]
+	});
+});
+
+io.set('loglevel', 3);
 
 io.configure(function() {
 	io.set("transports", ["xhr-polling"]);
@@ -56,15 +71,14 @@ io.sockets.on('connection', function(socket) {
 		console.log(data);
 	});
 	socket.on('join_room', function(data) {
+		console.log(io.sockets.clients(data.room).length);
 		if (rooms.indexOf(data.room) === -1) {
 			rooms.push(data.room);
-			socket.join(data.room);
 			// socket.set('nick', data.nick);
 			socket.emit('room_joined', {
 				room: data.room
 			});
 		} else if (io.sockets.clients(data.room).length < 2) {
-			socket.join(data.room);
 			// socket.set('nick', data.nick);
 			socket.emit('room_joined', {
 				room: data.room
@@ -74,6 +88,9 @@ io.sockets.on('connection', function(socket) {
 				msg: 'room full'
 			});
 		}
+	});
+	socket.on('enter_room', function(data) {
+		socket.join(data.room);
 	});
 });
 

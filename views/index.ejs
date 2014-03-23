@@ -5,6 +5,9 @@
     <link rel='stylesheet' href='/styles/index.css'>
   </head>
   <body>
+    <% if (error) { %>
+    <div class="error"><%= error %></div>
+    <% } %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <label for="room-name">Room name:</label>
