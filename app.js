@@ -100,9 +100,7 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 	socket.on('start_game', function(data) {
-		socket.get('room', function(err, room){
-			io.sockets.in(room).emit('game_started', {});
-		});
+		io.sockets.in(socket.room).emit('game_started', {});
 	});
 	socket.on('new_tok_sesh', function(data){
 		var room = data.room;
@@ -123,9 +121,7 @@ io.sockets.on('connection', function(socket) {
 		socket.broadcast.to(socket.room).emit('win', {});
 	})
 	socket.on('disconnect', function() {
-		socket.get('room', function(err, room){
-			socket.leave(room);
-		});
+		socket.leave(socket.room);
 	});
 });
 
