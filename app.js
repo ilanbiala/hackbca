@@ -37,6 +37,13 @@ app.get('/', function(req, res) {
 	});
 });
 
+// app.get('/room/:room', function(req, res) {
+// 	var room = req.params.room;
+// 	if (rooms.indexOf(room) != -1) {
+
+// 	}
+// });
+
 io.set('loglevel', 10);
 
 io.sockets.on('connection', function(socket) {

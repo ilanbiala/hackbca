@@ -5,15 +5,12 @@
     <link rel='stylesheet' href='/styles/style.css'>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <label for="room-name">Room name:</label>
-    <br>
-    <br>
-    <input id="room-name" name="room-name" type="text">
-    <button id="initiate-game">Launch/Join!</button>
+    <canvas width="1920" height="1080">Your browser does not support the <code>canvas</code> element. Please try another browser.</canvas>
+    <div class="accel"></div>
+    <div id="myPublisherDiv"></div>
     <script src="/scripts/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/scripts/main.js"></script>
+    <script src='https://swww.tokbox.com/webrtc/v2.0/js/TB.min.js'></script>
   </body>
 </html>

@@ -6,8 +6,8 @@ var token = "T1==cGFydG5lcl9pZD00NDcwNDM5MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC4
 var session = TB.initSession(sessionId);
 session.addEventListener('sessionConnected', sessionConnectedHandler);
 session.connect(apiKey, token);
-          
+
 function sessionConnectedHandler(event) {
-  var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
-  session.publish(publisher);
+	var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
+	session.publish(publisher);
 }
