@@ -47,7 +47,7 @@ $(document).ready(function() {
 	if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
 		socket = io.connect(window.location.href);
 		socket.emit('enter_room', {
-			room:
+			room: roomName
 		});
 		window.addEventListener('devicemotion', handleDeviceMotion, false);
 
