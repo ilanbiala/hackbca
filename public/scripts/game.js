@@ -1,12 +1,9 @@
-var accel = {
-	x: null,
-	y: null,
-	z: null
-};
 var roomWidth,
 	roomLength;
 var history = [];
 var roomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+var coords;
+var speed;
 
 //Lets paint the snake now
 function paint() {
@@ -41,56 +38,32 @@ function check_collision(x, y, array) {
 }
 
 function handleDeviceMotion(eventData) {
-
-	// Grab the acceleration including gravity from the results
-	var acceleration = eventData.accelerationIncludingGravity;
-	accel.x = acceleration.x.toFixed(3);
-	accel.y = acceleration.y.toFixed(3);
-	accel.z = acceleration.z.toFixed(3);
-
-	var accelString = '';
-	accelString += 'landscape/portrait: ' + accel.x + '<br>';
-	accelString += 'parallax: ' + accel.y + '<br>';
-	accelString += 'up/down: ' + accel.z + '<br>';
-	$('.accel').html(accelString);
 	socket.emit('geodata_receive', {
 		data: accel
 	});
 	history.push(accel);
 }
 
+var options = {
+	enableHighAccuracy: true,
+	timeout: 15000,
+	maximumAge: 0
+};
+
 function startGame() {
 	if (navigator.geolocation) {
-		id = navigator.geolocation.watchPosition(success, error, options);
+		id = navigator.geolocation.watchPosition(success, displayError, options);
 	}
 }
 
-var id,
-	target,
-	option;
-
-function success(pos) {
-	var crd = pos.coords;
-
-	if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-		console.log('Congratulation, you reach the target');
-		navigator.geolocation.clearWatch(id);
-	}
+function success(position) {
+	coords = position.coords;
+	speed = position.coords.speed;
+	$('.speed').text(speed);
 };
 
-function error(err) {
+function displayError(err) {
 	console.warn('ERROR(' + err.code + '): ' + err.message);
-};
-
-target = {
-	latitude: 0,
-	longitude: 0,
-}
-
-options = {
-	enableHighAccuracy: true,
-	timeout: 5000,
-	maximumAge: 0
 };
 
 $(document).ready(function() {
