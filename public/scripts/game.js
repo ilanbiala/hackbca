@@ -9,6 +9,9 @@ var canvas = null,
 	width = null,
 	height = null;
 
+var currentLat = null,
+	currentLong = null;
+
 function clearCanvas() {
 	ctx.clearRect(0, 0, 1920, 1080);
 }
@@ -100,25 +103,26 @@ function renderCanvas() {
 	requestAnimationFrame(renderCanvas);
 }
 
-function success(position) {
 	var currentLocation = {
 		x: null,
 		y: null,
 		speed: null,
 		accuracy: null
 	};
-	if (position.coords.longitude < 0) {
-		currentLocation.x = 800/2 + (position.coords.longitude * 800 / 90);
+
+function success(position) {
+
+	if (!(currentLat && currentLong)) {
+		currentLong = Math.floor(Math.random() * 801);
+		currentLat = Math.floor(Math.random() * 601);
+		currentLocation.x = currentLong;
+		currentLocation.y = currentLat;
 	} else {
-		currentLocation.x = position.coords.longitude * 800 / 90;
+		currentLocation.x += (position.coords.x - currentLong) * 50;
+		currentLocation.y += (position.coords.y - currentLat) * 50;
+		currentLong = currentLocation.x;
+		currentLat = currentLocation.y;
 	}
-	currentLocation.x = Math.floor(currentLocation.x % 0.01 * 100000);
-	if (position.coords.latitude < 0) {
-		currentLocation.y = 600/2 + (position.coords.latitude * 600 / 180);
-	} else {
-		currentLocation.y = position.coords.latitude * 600 / 180;
-	}
-	currentLocation.y = Math.floor(currentLocation.y % 0.01 * 100000);
 	currentLocation.speed = position.coords.speed;
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
