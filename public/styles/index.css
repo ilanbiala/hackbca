@@ -23,3 +23,16 @@ a {
 #room-name {
 	padding: 6px 0;
 }
+
+.credit-pic {
+	width: 250px;
+	height: 250px;
+	-webkit-border-radius: 125px;
+	-moz-border-radius: 125px;
+	border-radius: 125px;
+	margin: 0 0 0 3%;
+}
+
+.credit-container {
+	margin: 0 0 0 34%;
+}

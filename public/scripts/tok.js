@@ -21,7 +21,7 @@ function streamCreatedHandler(event) {
 	subscribeToStreams(event.streams);
 }
 
-var publisher = TB.initPublisher(apiKey);
+var publisher = TB.initPublisher(apiKey, 'video');
 var session = TB.initSession(sessionId);
 
 session.connect(apiKey, token);

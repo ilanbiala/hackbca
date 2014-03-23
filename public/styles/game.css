@@ -12,3 +12,8 @@ canvas {
 	left: 0;
 	color: white;
 }
+
+#video {
+	position: absolute;
+	left: 0;
+}

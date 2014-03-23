@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/styles/index.css'>
     <link rel='stylesheet' href='/styles/bootstrap.min.css'>
-  </head>
-  <body>
+</head>
+<body>
     <% if (error) { %>
     <div class="error"><%= error %></div>
     <% } %>
@@ -25,10 +25,13 @@
         <button class="btn btn-primary" id="initiate-game">Launch/Join!</button>
     </div>
     <br>
-    <div class="credits">By <a href="https://twitter.com/mattr555">Matt Ramina</a>, <a href="https://github.com/ilanbiala">Ilan Biala</a>, and <a href="https://github.com/acepie">Ameen Radwan</a></div>
-    <img class="credit-pic" href="/img/fools.jpg" />
+    <div class="credit-container">
+        <div class="credits">By <a href="https://twitter.com/mattr555">Matt Ramina</a>, <a href="https://github.com/ilanbiala">Ilan Biala</a>, and <a href="https://github.com/acepie">Ameen Radwan</a>
+        </div>
+        <img class="credit-pic" src="/img/fools.jpg">
+    </div>
     <script src="/scripts/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/scripts/main.js"></script>
-  </body>
+</body>
 </html>
