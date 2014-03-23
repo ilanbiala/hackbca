@@ -8,15 +8,18 @@
     <% if (error) { %>
     <div class="error"><%= error %></div>
     <% } %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>Welcome to <%= title %></h1>
+    <br>
+    <h2>Rules</h2>
+    <ul>
+        <li>Don't go off the map.</li>
+        <li>Two players only.</li>
+        <li>Don't collide with the enemy (red line).</li>
+        <li>Good luck and have fun.</li>
+    </ul>
+    <br>
     <label for="room-name">Room name:</label>
     <input id="room-name" name="room-name" type="text">
-    <br>
-<!--     <label for="player-name">Player name:</label>
-    <input id="player-name" name="player-name" type="text">
-    <br> -->
-    <br>
     <button id="initiate-game">Launch/Join!</button>
     <br>
     <div class="credits">By <a href="https://twitter.com/mattr555">Matt Ramina</a>, <a href="https://github.com/ilanbiala">Ilan Biala</a>, and <a href="https://github.com/acepie">Ameen Radwan</a></div>
