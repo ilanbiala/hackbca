@@ -6,10 +6,15 @@
 	<link rel="stylesheet" href="/styles/bootstrap.min.css">
 </head>
 <body>
-	<p class="accuracy"></p>
-	<p class="movement"></p>
-	<p class="currentLocation"></p>
+	<div class="info">
+		<p class="accuracy"></p>
+		<p class="movement"></p>
+		<p class="currentLocation"></p>
+	</div>
 	<canvas width="800" height="600">Your browser does not support the <code>canvas</code> element. Please try another browser.</canvas>
+	<audio style="display: none;" autoplay>
+		<source src="/music/techno.mp3" type="audio/mpeg"></source>
+	</audio>
 	<div id="myPublisherDiv"></div>
 	<script src="/scripts/jquery.min.js"></script>
 	<script src="/scripts/bootstrap.min.js"></script>

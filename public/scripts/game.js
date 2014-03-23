@@ -164,4 +164,9 @@ $(document).ready(function() {
 		alert('You won! :) Go back to the homepage to play again.');
 		window.location.href = '/';
 	});
+
+	$('audio')[0].addEventListener('ended', function() {
+		$('audio')[0].src = '/music/romero.mp3';
+		$('audio')[0].load().play();
+	});
 });
