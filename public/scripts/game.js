@@ -13,7 +13,7 @@ var currentLat = null,
 	currentLong = null;
 
 function clearCanvas() {
-	ctx.clearRect(0, 0, 1920, 1080);
+	ctx.clearRect(0, 0, 800, 600);
 }
 
 function paintUser() {
@@ -42,17 +42,16 @@ function paint_cell(x, y) {
 function paint_path(oldLocation, newLocation) {
 	ctx.lineWidth = 10;
 	ctx.beginPath();
-	// console.log('old location: ' + oldLocation.x, oldLocation.y);
-	// console.log('current locaiton: ' + currentLocation.x, currentLocation.y);
 	ctx.moveTo(oldLocation.x, oldLocation.y);
 	ctx.lineTo(newLocation.x, newLocation.y);
 	ctx.stroke();
 }
 
-function check_collision(user, enemy) {
+function check_collisions() {
 	for (var i = 1; i< enemyHistory.length; i++){
 		if (enemyHistory[i].x-currentLocation.x<5 && enemyHistory[i].y-currentLocation.y<5){
 			alert('You lost. :( Go back to the homepage to play again.');
+			return false;
 			socket.emit('lose', {
 
 			});
@@ -97,6 +96,7 @@ function renderCanvas() {
 	} else {
 		paintEnemy();
 	}
+	check_collisions();
 	requestAnimationFrame(renderCanvas);
 }
 
@@ -126,9 +126,13 @@ function success(position) {
 	}
 	currentLocation.accuracy = position.coords.accuracy;
 	$('.currentLocation').html(currentLocation.x + ', ' + currentLocation.y);
-	history.push(currentLocation);
+	debugger;
+	history.push({
+		x: currentLocation.x,
+		y: currentLocation.y,
+		accuracy: currentLocation.accuracy
+	});
 	$('.accuracy').text(currentLocation.accuracy);
-	$('.history').text(history.length);
 };
 
 function displayError(err) {
@@ -151,20 +155,6 @@ $(document).ready(function() {
 		socket.emit('start_game', {
 
 		});
-		// if (data.requestArea) {
-		// $('#gameModal').modal('show');
-		// $('#startGame').on('click', function() {
-		// roomLength = $('#room-length').val();
-		// roomWidth = $('#room-width').val();
-		// if (!(roomWidth.length > 0 && roomLength.length > 0)) {
-		// return false;
-		// }
-		// socket.emit('start_game', {
-
-		// });
-		// $('#gameModal').modal('hide');
-		// });
-		// }
 	});
 
 	socket.on('game_started', function() {
@@ -172,7 +162,11 @@ $(document).ready(function() {
 	});
 
 	socket.on('win', function() {
+<<<<<<< HEAD
 		alert('You win! :) Go back to the homepage to play again.');
 		window.location.href = '/';
+=======
+		alert('You won! :) Go back to the homepage to play again.');
+>>>>>>> 861736f7217fe29be5753355e1f7e59d06587d32
 	});
 });
